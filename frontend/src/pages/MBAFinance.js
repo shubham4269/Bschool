@@ -6,7 +6,7 @@ const config = {
     title: 'MBA in Finance',
     subtitle: 'Build a high-impact career in investment banking, corporate finance, and financial analytics with an MBA in Finance from India\'s top B-schools.',
     icon: '💹',
-    heroGradient: 'linear-gradient(135deg, #10b981, #059669)',
+    heroBackgroundImage: '',
     overview: [
         'An MBA in Finance India is among the most prestigious and rewarding specializations in management education. It prepares students for leadership roles in banking, investment management, corporate finance, financial consulting, and fintech — sectors that form the backbone of any economy.',
         'Finance professionals are critical to every organization. Whether it\'s a multinational corporation managing billions in assets, a startup seeking venture capital, or a government body designing fiscal policy, MBA Finance graduates are at the forefront of strategic financial decision-making.',

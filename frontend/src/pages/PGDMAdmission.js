@@ -6,7 +6,7 @@ const config = {
     title: 'PGDM Admission',
     subtitle: 'Pursue a Post Graduate Diploma in Management from AICTE-approved autonomous institutions with industry-relevant curriculum.',
     icon: '📋',
-    heroGradient: 'linear-gradient(135deg, #0ea5e9, #06b6d4)',
+    heroBackgroundImage: '',
     overview: [
         'The Post Graduate Diploma in Management (PGDM) is a 2-year postgraduate management program offered by autonomous institutions approved by AICTE. Unlike MBA, which is a degree program offered by universities, PGDM offers more flexibility in curriculum design and industry alignment.',
         'PGDM programs are highly valued by employers because their curriculum is frequently updated to match current industry demands. Top institutions like IIMs, XLRI, MDI, and IMI offer PGDM instead of MBA.',

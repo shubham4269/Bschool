@@ -6,7 +6,7 @@ const config = {
     title: 'MBA in Marketing',
     subtitle: 'Master the art and science of marketing with an MBA specialization that prepares you for leadership roles in brand management, digital marketing, and consumer strategy.',
     icon: '📢',
-    heroGradient: 'linear-gradient(135deg, #f97316, #ef4444)',
+    heroBackgroundImage: '',
     overview: [
         'An MBA in Marketing is one of the most popular and dynamic specializations in the business world. It equips students with deep knowledge of consumer behavior, brand strategy, market research, digital marketing, advertising, and sales management — all essential skills for driving business growth in today\'s competitive landscape.',
         'Marketing professionals are in high demand across every industry — from FMCG and retail to technology, healthcare, and financial services. With the rapid growth of digital channels, the scope of marketing has expanded dramatically, creating exciting career opportunities in performance marketing, content strategy, social media management, and marketing analytics.',

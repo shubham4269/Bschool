@@ -6,7 +6,7 @@ const config = {
     title: 'MBA in Operations Management',
     subtitle: 'Drive operational excellence and supply chain efficiency with an MBA in Operations — the backbone of every successful organization.',
     icon: '⚙️',
-    heroGradient: 'linear-gradient(135deg, #f59e0b, #d97706)',
+    heroBackgroundImage: '',
     overview: [
         'An MBA in Operations Management prepares you to optimize business processes, manage supply chains, and drive efficiency across organizations. Operations managers ensure that products are manufactured, services are delivered, and resources are allocated in the most efficient and cost-effective manner possible.',
         'With the rise of global supply chains, e-commerce logistics, Industry 4.0, and lean manufacturing, the demand for operations professionals has never been higher. Companies like Amazon, Flipkart, Tata Motors, and Reliance actively seek MBA operations graduates to manage their complex operational ecosystems.',

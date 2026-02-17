@@ -6,7 +6,7 @@ const config = {
     title: 'MBA in Business Analytics',
     subtitle: 'Harness the power of data to drive business decisions with an MBA in Business Analytics — the fastest-growing specialization in management education.',
     icon: '📊',
-    heroGradient: 'linear-gradient(135deg, #0ea5e9, #3b82f6)',
+    heroBackgroundImage: '',
     overview: [
         'An MBA in Business Analytics combines the rigor of data science with the strategic thinking of an MBA. As organizations worldwide adopt data-driven decision-making, the demand for professionals who can translate complex data into actionable business insights has skyrocketed.',
         'This specialization teaches you advanced statistical analysis, machine learning, predictive modeling, data visualization, and business intelligence — all within the context of real-world business challenges. You\'ll learn to use tools like Python, R, SQL, Tableau, Power BI, and cloud-based analytics platforms.',

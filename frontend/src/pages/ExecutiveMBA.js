@@ -6,7 +6,7 @@ const config = {
     title: 'Executive MBA',
     subtitle: 'Accelerate your career with Executive MBA programs designed for working professionals — study on weekends while you continue working.',
     icon: '💼',
-    heroGradient: 'linear-gradient(135deg, #8b5cf6, #a855f7)',
+    heroBackgroundImage: '',
     overview: [
         'The Executive MBA (EMBA) is a premium management program specifically designed for mid-career professionals who want to advance to senior leadership positions without leaving their jobs. It combines rigorous academic learning with practical business application.',
         'Executive MBA programs offer flexible scheduling — weekend classes, evening sessions, or intensive module-based formats — so that professionals can balance work, studies, and personal life effectively.',

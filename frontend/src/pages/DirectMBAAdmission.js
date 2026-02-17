@@ -6,7 +6,7 @@ const config = {
     title: 'Direct MBA Admission',
     subtitle: 'Secure your MBA seat directly based on academic merit, work experience, and profile strength — without the stress of competitive entrance exams.',
     icon: '⚡',
-    heroGradient: 'linear-gradient(135deg, #10b981, #14b8a6)',
+    heroBackgroundImage: '',
     overview: [
         'Direct MBA Admission is a streamlined admissions process where students can secure a seat in top management programs based on their academic performance, work experience, and overall profile strength, without solely depending on entrance exam scores.',
         'Many reputed B-schools in India offer management quota, institutional reserved seats, and direct admission pathways for deserving candidates. Bschool Bridge has established partnerships with 100+ colleges that offer legitimate direct admission options.',

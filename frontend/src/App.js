@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -8,19 +8,7 @@ import { ApplyModalProvider } from './context/ApplyModalContext';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import MBAAdmission from './pages/MBAAdmission';
-import PGDMAdmission from './pages/PGDMAdmission';
-import MBAWithoutCAT from './pages/MBAWithoutCAT';
-import DirectMBAAdmission from './pages/DirectMBAAdmission';
-import ExecutiveMBA from './pages/ExecutiveMBA';
-import DistanceOnlineMBA from './pages/DistanceOnlineMBA';
-import MBAMarketing from './pages/MBAMarketing';
-import MBAFinance from './pages/MBAFinance';
-import MBAHR from './pages/MBAHR';
-import MBABusinessAnalytics from './pages/MBABusinessAnalytics';
-import MBAOperations from './pages/MBAOperations';
-import MBADigitalMarketing from './pages/MBADigitalMarketing';
-import MBAInternationalBusiness from './pages/MBAInternationalBusiness';
+import DynamicCoursePage from './pages/DynamicCoursePage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Disclaimer from './pages/Disclaimer';
 import TermsAndConditions from './pages/TermsAndConditions';
@@ -44,26 +32,33 @@ function AppContent() {
       {!isAdmin && <ApplyModal />}
       <main>
         <Routes>
+          <Route path="/index.html" element={<Navigate to="/" replace />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/mba-admission" element={<MBAAdmission />} />
-          <Route path="/pgdm-admission" element={<PGDMAdmission />} />
-          <Route path="/mba-without-cat" element={<MBAWithoutCAT />} />
-          <Route path="/direct-mba-admission" element={<DirectMBAAdmission />} />
-          <Route path="/executive-mba" element={<ExecutiveMBA />} />
-          <Route path="/distance-online-mba" element={<DistanceOnlineMBA />} />
-          <Route path="/mba-marketing" element={<MBAMarketing />} />
-          <Route path="/mba-finance" element={<MBAFinance />} />
-          <Route path="/mba-hr" element={<MBAHR />} />
-          <Route path="/mba-business-analytics" element={<MBABusinessAnalytics />} />
-          <Route path="/mba-operations" element={<MBAOperations />} />
-          <Route path="/mba-digital-marketing" element={<MBADigitalMarketing />} />
-          <Route path="/mba-international-business" element={<MBAInternationalBusiness />} />
+          {/* Dynamic service and specialization pages */}
+          <Route path="/service/:slug" element={<DynamicCoursePage type="service" />} />
+          <Route path="/specialization/:slug" element={<DynamicCoursePage type="specialization" />} />
+          {/* Legacy routes — redirect old URLs to new dynamic ones */}
+          <Route path="/mba-admission" element={<Navigate to="/service/mba-admission" replace />} />
+          <Route path="/pgdm-admission" element={<Navigate to="/service/pgdm-admission" replace />} />
+          <Route path="/mba-without-cat" element={<Navigate to="/service/mba-without-cat" replace />} />
+          <Route path="/direct-mba-admission" element={<Navigate to="/service/direct-mba-admission" replace />} />
+          <Route path="/executive-mba" element={<Navigate to="/service/executive-mba" replace />} />
+          <Route path="/distance-online-mba" element={<Navigate to="/service/distance-online-mba" replace />} />
+          <Route path="/mba-marketing" element={<Navigate to="/specialization/mba-marketing" replace />} />
+          <Route path="/mba-finance" element={<Navigate to="/specialization/mba-finance" replace />} />
+          <Route path="/mba-hr" element={<Navigate to="/specialization/mba-hr" replace />} />
+          <Route path="/mba-business-analytics" element={<Navigate to="/specialization/mba-business-analytics" replace />} />
+          <Route path="/mba-operations" element={<Navigate to="/specialization/mba-operations" replace />} />
+          <Route path="/mba-digital-marketing" element={<Navigate to="/specialization/mba-digital-marketing" replace />} />
+          <Route path="/mba-international-business" element={<Navigate to="/specialization/mba-international-business" replace />} />
+          {/* Legal pages */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
       {!isAdmin && <Footer />}

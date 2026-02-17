@@ -1,9 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function PageHero({ title, subtitle, breadcrumb }) {
+function PageHero({ title, subtitle, breadcrumb, backgroundImage }) {
+    const heroStyle = backgroundImage ? {
+        background: `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)), url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+    } : {};
+
+    // Split title into words and apply alternating colors
+    const renderColoredTitle = (title) => {
+        const words = title.split(' ');
+        const colors = ['#ffffff', '#ff9800', '#ffffff', '#ff5722']; // white, orange, white, red-orange
+        
+        return words.map((word, index) => (
+            <span key={index} style={{ color: colors[index % colors.length] }}>
+                {word}{index < words.length - 1 ? ' ' : ''}
+            </span>
+        ));
+    };
+
     return (
-        <section className="page-hero">
+        <section className="page-hero" style={heroStyle}>
             <div className="page-hero-content fade-in">
                 {breadcrumb && (
                     <div className="page-hero-breadcrumb">
@@ -20,7 +39,7 @@ function PageHero({ title, subtitle, breadcrumb }) {
                         ))}
                     </div>
                 )}
-                <h1 className="page-hero-title">{title}</h1>
+                <h1 className="page-hero-title">{renderColoredTitle(title)}</h1>
                 {subtitle && <p className="page-hero-subtitle">{subtitle}</p>}
             </div>
         </section>

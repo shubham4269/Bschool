@@ -6,7 +6,7 @@ const config = {
     title: 'MBA in Human Resources',
     subtitle: 'Shape organizational culture and drive talent strategy with an MBA in HR from India\'s leading B-schools and MBA HR colleges known for exceptional placements.',
     icon: '👥',
-    heroGradient: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+    heroBackgroundImage: '',
     overview: [
         'An MBA in Human Resources (HR) is a specialized management program that prepares students to lead the people function in organizations. From talent acquisition and employee engagement to organizational development and HR analytics, this specialization covers every aspect of managing an organization\'s most valuable asset — its people.',
         'The demand for skilled HR professionals has surged as companies recognize that people strategy directly impacts business performance. Modern HR goes far beyond traditional personnel management — it now encompasses employer branding, people analytics, diversity & inclusion, HR technology, and strategic workforce planning.',

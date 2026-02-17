@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 function Footer() {
+    const [services, setServices] = useState([]);
+    const [specializations, setSpecializations] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [servicesRes, specsRes] = await Promise.all([
+                    fetch(`${API_URL}/api/services`),
+                    fetch(`${API_URL}/api/specializations`),
+                ]);
+                const servicesData = await servicesRes.json();
+                const specsData = await specsRes.json();
+
+                if (servicesData.success) setServices(servicesData.services);
+                if (specsData.success) setSpecializations(specsData.specializations);
+            } catch (err) {
+                console.error('Failed to fetch footer data:', err);
+            }
+        };
+        fetchData();
+    }, []);
+
     return (
         <footer className="footer" id="site-footer">
             <div className="footer-grid">
@@ -34,31 +58,43 @@ function Footer() {
                         <Link to="/" className="footer-link" id="footer-home">Home</Link>
                         <Link to="/about" className="footer-link" id="footer-about">About Us</Link>
                         <Link to="/contact" className="footer-link" id="footer-contact">Contact Us</Link>
-                        <Link to="/mba-admission" className="footer-link" id="footer-mba">MBA Admission</Link>
+                        {services.length > 0 && (
+                            <Link to={`/service/${services[0].slug}`} className="footer-link" id="footer-first-service">
+                                {services[0].title}
+                            </Link>
+                        )}
                     </div>
                 </div>
 
                 <div>
-                    <h4 className="footer-title">Programs</h4>
+                    <h4 className="footer-title">Services</h4>
                     <div className="footer-links">
-                        <Link to="/pgdm-admission" className="footer-link" id="footer-pgdm">PGDM Admission</Link>
-                        <Link to="/mba-without-cat" className="footer-link" id="footer-without-cat">MBA Without CAT</Link>
-                        <Link to="/direct-mba-admission" className="footer-link" id="footer-direct">Direct MBA Admission</Link>
-                        <Link to="/executive-mba" className="footer-link" id="footer-executive">Executive MBA</Link>
-                        <Link to="/distance-online-mba" className="footer-link" id="footer-distance">Distance / Online MBA</Link>
+                        {services.map((service) => (
+                            <Link
+                                key={service.slug}
+                                to={`/service/${service.slug}`}
+                                className="footer-link"
+                                id={`footer-service-${service.slug}`}
+                            >
+                                {service.title}
+                            </Link>
+                        ))}
                     </div>
                 </div>
 
                 <div>
                     <h4 className="footer-title">Specializations</h4>
                     <div className="footer-links">
-                        <Link to="/mba-marketing" className="footer-link" id="footer-marketing">MBA Marketing</Link>
-                        <Link to="/mba-finance" className="footer-link" id="footer-finance">MBA Finance</Link>
-                        <Link to="/mba-hr" className="footer-link" id="footer-hr">MBA HR</Link>
-                        <Link to="/mba-business-analytics" className="footer-link" id="footer-analytics">MBA Business Analytics</Link>
-                        <Link to="/mba-operations" className="footer-link" id="footer-operations">MBA Operations</Link>
-                        <Link to="/mba-digital-marketing" className="footer-link" id="footer-digital-marketing">MBA Digital Marketing</Link>
-                        <Link to="/mba-international-business" className="footer-link" id="footer-intl-business">MBA International Business</Link>
+                        {specializations.map((spec) => (
+                            <Link
+                                key={spec.slug}
+                                to={`/specialization/${spec.slug}`}
+                                className="footer-link"
+                                id={`footer-spec-${spec.slug}`}
+                            >
+                                {spec.title}
+                            </Link>
+                        ))}
                     </div>
                 </div>
 

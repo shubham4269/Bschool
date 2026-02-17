@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PageHero from '../components/PageHero';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function Contact() {
+    const scrollRef = useScrollAnimation();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -49,7 +51,7 @@ function Contact() {
     };
 
     return (
-        <>
+        <div ref={scrollRef}>
             <PageHero
                 title="Contact Us"
                 subtitle="Have questions about MBA admissions? Our expert counselors are here to help you every step of the way."
@@ -66,7 +68,7 @@ function Contact() {
                             { icon: '✉️', title: 'Email Us', text: 'info@bschoolbridge.in\nadmissions@bschoolbridge.in' },
                             { icon: '🕐', title: 'Office Hours', text: 'Mon - Sat: 9:00 AM - 7:00 PM\nSunday: Closed' },
                         ].map((info, i) => (
-                            <div key={i} className="contact-info-card fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
+                            <div key={i} className="contact-info-card card-tilt" data-animate="fade-up" data-delay={i * 100}>
                                 <div className="contact-info-icon">{info.icon}</div>
                                 <div>
                                     <h4 className="contact-info-title">{info.title}</h4>
@@ -82,9 +84,9 @@ function Contact() {
             <section className="section" id="contact-form-section" style={{ background: 'var(--gray-50)' }}>
                 <div className="container">
                     <div className="contact-grid">
-                        <div className="fade-in">
+                        <div data-animate="fade-right">
                             <div className="section-label">Get In Touch</div>
-                            <h2 className="section-title" style={{ marginBottom: '20px' }}>Send Us a Message</h2>
+                            <h2 className="section-title title-reveal" style={{ marginBottom: '20px' }}>Send Us a Message</h2>
                             <p className="section-subtitle" style={{ marginBottom: '32px' }}>
                                 Fill out the form below and our admission counselors will get back to you within 24 hours with personalized guidance.
                             </p>
@@ -202,13 +204,13 @@ function Contact() {
                                     />
                                 </div>
 
-                                <button type="submit" className="btn btn-primary btn-lg" id="contact-submit" style={{ alignSelf: 'flex-start', opacity: loading ? 0.7 : 1 }} disabled={loading}>
+                                <button type="submit" className="btn btn-primary btn-lg btn-glow" id="contact-submit" style={{ alignSelf: 'flex-start', opacity: loading ? 0.7 : 1 }} disabled={loading}>
                                     {loading ? '⏳ Sending...' : 'Send Message →'}
                                 </button>
                             </form>
                         </div>
 
-                        <div className="fade-in fade-in-delay-2">
+                        <div data-animate="fade-left" data-delay="200">
                             <div style={{
                                 background: 'var(--gradient-hero)',
                                 borderRadius: 'var(--radius-xl)',
@@ -250,7 +252,7 @@ function Contact() {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
 

@@ -6,7 +6,7 @@ const config = {
     title: 'MBA in International Business',
     subtitle: 'Go global with an MBA in International Business — master cross-border trade, global strategy, and international market expansion.',
     icon: '🌍',
-    heroGradient: 'linear-gradient(135deg, #06b6d4, #0284c7)',
+    heroBackgroundImage: '',
     overview: [
         'An MBA in International Business prepares you to navigate the complexities of global commerce, cross-cultural management, and international market strategy. As Indian companies expand globally and multinational corporations deepen their India operations, the demand for professionals with international business acumen has never been higher.',
         'This specialization covers international trade policy, export-import management, foreign exchange, cross-cultural negotiations, global supply chain management, and international marketing — giving you a 360-degree understanding of how business operates across borders.',

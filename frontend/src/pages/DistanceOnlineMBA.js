@@ -6,7 +6,7 @@ const config = {
     title: 'Distance / Online MBA',
     subtitle: 'Earn a UGC-recognized MBA degree from top universities through distance or online learning — study anytime, anywhere at your own pace.',
     icon: '🌐',
-    heroGradient: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+    heroBackgroundImage: '',
     overview: [
         'Distance and Online MBA programs offer a flexible and affordable pathway to earn a management degree from some of India\'s most reputed universities without attending regular classes. These programs are recognized by UGC-DEB (University Grants Commission - Distance Education Bureau) and are valid for all job applications.',
         'With advancements in educational technology, online MBA programs now offer interactive live classes, recorded lectures, virtual labs, discussion forums, and digital libraries — providing an experience that closely mirrors on-campus learning.',

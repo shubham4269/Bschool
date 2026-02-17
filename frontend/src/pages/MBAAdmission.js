@@ -6,7 +6,7 @@ const config = {
     title: 'MBA Admission',
     subtitle: 'Get admitted to top MBA colleges across India with expert guidance, career counseling, and end-to-end application support.',
     icon: '🎓',
-    heroGradient: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+    heroBackgroundImage: '', // Falls back to gradient
     overview: [
         'The Master of Business Administration (MBA) is one of the most sought-after postgraduate degrees globally. An MBA equips you with essential business acumen, leadership skills, and strategic thinking capabilities that top employers value.',
         'At Bschool Bridge, we help you navigate the complex MBA admission landscape — from choosing the right entrance exam and colleges to acing your interviews and securing your seat at a top-ranked institution.',

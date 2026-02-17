@@ -2,13 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
 import { useApplyModal } from '../context/ApplyModalContext';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 
 function CoursePage({ config }) {
     const { openModal } = useApplyModal();
+    const scrollRef = useScrollAnimation();
     const {
         title,
         subtitle,
-        heroGradient,
+        cardBackgroundImage,
+        heroBackgroundImage,
         icon,
         overview,
         eligibility,
@@ -20,11 +23,12 @@ function CoursePage({ config }) {
     } = config;
 
     return (
-        <>
+        <div ref={scrollRef}>
             <PageHero
                 title={title}
                 subtitle={subtitle}
                 breadcrumb={[{ label: 'Programs', path: '/' }, { label: title }]}
+                backgroundImage={cardBackgroundImage}
             />
 
             <section className="section" style={{ background: 'white' }}>
@@ -33,7 +37,7 @@ function CoursePage({ config }) {
                         {/* Main Content */}
                         <div className="course-main">
                             {/* Overview */}
-                            <div className="course-section fade-in" id="course-overview">
+                            <div className="course-section" data-animate="fade-up" id="course-overview">
                                 <h2>Program Overview</h2>
                                 {overview.map((para, i) => (
                                     <p key={i}>{para}</p>
@@ -41,7 +45,7 @@ function CoursePage({ config }) {
                             </div>
 
                             {/* Eligibility */}
-                            <div className="course-section fade-in fade-in-delay-1" id="course-eligibility">
+                            <div className="course-section" data-animate="fade-up" data-delay="100" id="course-eligibility">
                                 <h2>Eligibility Criteria</h2>
                                 <ul>
                                     {eligibility.map((item, i) => (
@@ -51,11 +55,11 @@ function CoursePage({ config }) {
                             </div>
 
                             {/* Key Highlights */}
-                            <div className="course-section fade-in fade-in-delay-2" id="course-highlights">
+                            <div className="course-section" data-animate="fade-up" data-delay="200" id="course-highlights">
                                 <h2>Key Highlights</h2>
                                 <div className="features-grid" style={{ marginTop: '20px' }}>
                                     {highlights.map((h, i) => (
-                                        <div key={i} style={{
+                                        <div key={i} className="card-tilt" data-animate="zoom-in" data-delay={300 + i * 80} style={{
                                             background: 'var(--gray-50)',
                                             borderRadius: 'var(--radius-md)',
                                             padding: '24px',
@@ -65,7 +69,7 @@ function CoursePage({ config }) {
                                         }}>
                                             <div style={{
                                                 width: '44px', height: '44px',
-                                                background: heroGradient || 'var(--gradient-primary)',
+                                                background: 'var(--gradient-primary)',
                                                 borderRadius: 'var(--radius-sm)',
                                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                 fontSize: '1.2rem', flexShrink: 0,
@@ -87,7 +91,7 @@ function CoursePage({ config }) {
 
                             {/* Curriculum */}
                             {curriculum && (
-                                <div className="course-section fade-in fade-in-delay-3" id="course-curriculum">
+                                <div className="course-section" data-animate="fade-up" data-delay="300" id="course-curriculum">
                                     <h2>Curriculum & Specializations</h2>
                                     <ul>
                                         {curriculum.map((item, i) => (
@@ -99,7 +103,7 @@ function CoursePage({ config }) {
 
                             {/* Why Choose */}
                             {whyChoose && (
-                                <div className="course-section fade-in" id="course-why">
+                                <div className="course-section" data-animate="fade-up" data-delay="400" id="course-why">
                                     <h2>Why Choose This Program?</h2>
                                     <ul>
                                         {whyChoose.map((item, i) => (
@@ -112,9 +116,19 @@ function CoursePage({ config }) {
 
                         {/* Sidebar */}
                         <div className="course-sidebar">
-                            <div className="sidebar-card fade-in">
-                                <div className="sidebar-card-header" style={{ background: heroGradient || 'var(--gradient-primary)' }}>
-                                    <div style={{ fontSize: '2.5rem', marginBottom: '8px' }}>{icon}</div>
+                            <div className="sidebar-card" data-animate="fade-left" data-delay="200">
+                                <div className="sidebar-card-header" style={{ 
+                                    background: heroBackgroundImage 
+                                        ? `linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.7)), url(${heroBackgroundImage})` 
+                                        : 'var(--gradient-primary)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat',
+                                    minHeight: '180px'
+                                }}>
+                                    {!heroBackgroundImage && (
+                                        <div style={{ fontSize: '2.5rem', marginBottom: '8px' }}>{icon}</div>
+                                    )}
                                     <h3>{title}</h3>
                                 </div>
                                 <div className="sidebar-card-body">
@@ -130,7 +144,7 @@ function CoursePage({ config }) {
                                         ))}
                                     </div>
                                     <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                        <button onClick={() => openModal(courseSlug || '')} className="btn btn-primary" style={{ width: '100%' }} id="sidebar-apply-btn">
+                                        <button onClick={() => openModal(courseSlug || '')} className="btn btn-primary btn-glow" style={{ width: '100%' }} id="sidebar-apply-btn">
                                             Apply Now →
                                         </button>
                                         <button onClick={() => openModal(courseSlug || '')} className="btn btn-secondary" style={{ width: '100%' }} id="sidebar-enquiry-btn">
@@ -140,7 +154,7 @@ function CoursePage({ config }) {
                                 </div>
                             </div>
 
-                            <div className="sidebar-card fade-in fade-in-delay-2">
+                            <div className="sidebar-card" data-animate="fade-left" data-delay="400">
                                 <div className="sidebar-card-body" style={{ textAlign: 'center' }}>
                                     <div style={{ fontSize: '2rem', marginBottom: '12px' }}>📞</div>
                                     <h4 style={{ fontFamily: 'var(--font-serif)', marginBottom: '8px' }}>Need Help?</h4>
@@ -162,13 +176,13 @@ function CoursePage({ config }) {
 
             {/* CTA */}
             <section className="cta-section">
-                <div className="cta-content fade-in">
+                <div className="cta-content" data-animate="scale-in">
                     <h2 className="cta-title">Ready to Apply for {title}?</h2>
                     <p className="cta-text">
                         Get personalized guidance from our expert counselors. Free profile evaluation and admission support.
                     </p>
                     <div className="cta-buttons">
-                        <button onClick={() => openModal(courseSlug || '')} className="btn btn-accent btn-lg" id="course-cta-apply">
+                        <button onClick={() => openModal(courseSlug || '')} className="btn btn-accent btn-lg btn-glow" id="course-cta-apply">
                             Start Application →
                         </button>
                         <Link to="/" className="btn btn-outline-white btn-lg" id="course-cta-explore">
@@ -177,7 +191,7 @@ function CoursePage({ config }) {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
 

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import AdminContentManager from '../components/AdminContentManager';
+import HeroSliderManager from '../components/HeroSliderManager';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -286,6 +288,7 @@ function AdminDashboard() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedLead, setSelectedLead] = useState(null);
     const [error, setError] = useState('');
+    const [activeTab, setActiveTab] = useState('leads');
 
     // Verify existing token on mount
     useEffect(() => {
@@ -502,357 +505,404 @@ function AdminDashboard() {
                     </div>
                 </div>
 
-                {/* Stats Cards */}
-                {stats && (
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                        gap: '16px',
-                        marginBottom: '32px',
-                    }}>
-                        {[
-                            { label: 'Total Leads', value: stats.stats.total, icon: '📋', gradient: 'linear-gradient(135deg, #4f46e5, #7c3aed)' },
-                            { label: 'New Leads', value: stats.stats.new, icon: '🆕', gradient: 'linear-gradient(135deg, #0ea5e9, #06b6d4)' },
-                            { label: 'Contacted', value: stats.stats.contacted, icon: '📞', gradient: 'linear-gradient(135deg, #f59e0b, #f97316)' },
-                            { label: 'Converted', value: stats.stats.converted, icon: '✅', gradient: 'linear-gradient(135deg, #10b981, #14b8a6)' },
-                            { label: "Today's Leads", value: stats.stats.today, icon: '📅', gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)' },
-                        ].map((stat, i) => (
-                            <div key={i} style={{
-                                background: 'white',
-                                borderRadius: '16px',
-                                padding: '24px',
-                                border: '1px solid #e2e8f0',
-                                position: 'relative',
-                                overflow: 'hidden',
-                            }}>
-                                <div style={{
-                                    position: 'absolute', top: '-20px', right: '-20px', width: '80px', height: '80px',
-                                    background: stat.gradient, borderRadius: '50%', opacity: 0.1,
-                                }} />
-                                <div style={{ fontSize: '1.5rem', marginBottom: '8px' }}>{stat.icon}</div>
-                                <div style={{
-                                    fontFamily: 'var(--font-serif)', fontSize: '2rem', fontWeight: '800',
-                                    color: 'var(--gray-900)', lineHeight: 1,
-                                }}>
-                                    {stat.value}
-                                </div>
-                                <div style={{ fontSize: '0.85rem', color: 'var(--gray-500)', marginTop: '4px', fontWeight: '500' }}>
-                                    {stat.label}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {/* Filters Bar */}
+                {/* Tab Navigation */}
                 <div style={{
-                    background: 'white',
-                    borderRadius: '16px',
-                    padding: '20px 24px',
-                    border: '1px solid #e2e8f0',
-                    display: 'flex',
-                    gap: '16px',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    marginBottom: '24px',
+                    display: 'flex', gap: '4px', marginBottom: '28px',
+                    background: 'white', borderRadius: '14px', padding: '5px',
+                    border: '1px solid #e2e8f0', width: 'fit-content',
                 }}>
-                    <div style={{ flex: 1, minWidth: '240px' }}>
-                        <input
-                            type="text"
-                            placeholder="🔍 Search by name, email, phone, or course..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                    {[
+                        { key: 'leads', label: '📋 Leads', count: stats?.stats?.total },
+                        { key: 'services', label: '🎓 Services' },
+                        { key: 'specializations', label: '📚 Specializations' },
+                        { key: 'hero-slider', label: '🎬 Hero Slider' },
+                    ].map(tab => (
+                        <button
+                            key={tab.key}
+                            onClick={() => setActiveTab(tab.key)}
+                            id={`tab-${tab.key}`}
                             style={{
-                                width: '100%', padding: '12px 18px', border: '2px solid #e2e8f0',
-                                borderRadius: '12px', fontSize: '0.9rem', fontFamily: 'var(--font-sans)',
-                                outline: 'none', transition: '0.3s ease',
+                                padding: '10px 24px', borderRadius: '10px', border: 'none',
+                                fontSize: '0.88rem', fontWeight: '600', cursor: 'pointer',
+                                fontFamily: 'var(--font-sans)', transition: '0.3s ease',
+                                background: activeTab === tab.key ? 'var(--gradient-primary)' : 'transparent',
+                                color: activeTab === tab.key ? 'white' : '#64748b',
                             }}
-                            onFocus={(e) => e.target.style.borderColor = '#818cf8'}
-                            onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
-                            id="admin-search"
-                        />
-                    </div>
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                        {['all', 'new', 'contacted', 'converted', 'closed'].map((status) => (
-                            <button
-                                key={status}
-                                onClick={() => setFilterStatus(status)}
-                                style={{
-                                    padding: '10px 20px',
-                                    borderRadius: '999px',
-                                    border: 'none',
-                                    fontSize: '0.85rem',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    fontFamily: 'var(--font-sans)',
-                                    transition: '0.3s ease',
-                                    background: filterStatus === status ? 'var(--gradient-primary)' : '#f1f5f9',
-                                    color: filterStatus === status ? 'white' : '#64748b',
-                                }}
-                                id={`filter-${status}`}
-                            >
-                                {status === 'all' ? 'All' : STATUS_CONFIG[status]?.label || status}
-                            </button>
-                        ))}
-                    </div>
+                        >
+                            {tab.label}{tab.count != null ? ` (${tab.count})` : ''}
+                        </button>
+                    ))}
                 </div>
 
-                {error && (
-                    <div style={{
-                        background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '12px',
-                        padding: '16px 20px', color: '#991b1b', marginBottom: '24px', fontSize: '0.95rem',
-                    }}>
-                        ⚠️ {error}
-                    </div>
+                {/* Services Tab */}
+                {activeTab === 'services' && (
+                    <AdminContentManager type="services" onLogout={handleLogout} />
                 )}
 
-                {/* Leads Table */}
-                <div style={{
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    overflow: 'hidden',
-                }}>
-                    {loading ? (
-                        <div style={{ padding: '60px', textAlign: 'center', color: 'var(--gray-400)' }}>
-                            <div style={{ fontSize: '2rem', marginBottom: '12px' }}>⏳</div>
-                            Loading leads...
-                        </div>
-                    ) : leads.length === 0 ? (
-                        <div style={{ padding: '60px', textAlign: 'center', color: 'var(--gray-400)' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '12px' }}>📭</div>
-                            <div style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--gray-600)', marginBottom: '8px' }}>
-                                No leads found
-                            </div>
-                            <div style={{ fontSize: '0.9rem' }}>
-                                {filterStatus !== 'all' || searchQuery
-                                    ? 'Try adjusting your filters or search query.'
-                                    : 'Leads submitted via the contact form will appear here.'}
-                            </div>
-                        </div>
-                    ) : (
-                        <div style={{ overflowX: 'auto' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
-                                <thead>
-                                    <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
-                                        {['Name', 'Email', 'Phone', 'Program', 'Status', 'Date', 'Actions'].map((h) => (
-                                            <th key={h} style={{
-                                                padding: '14px 16px', textAlign: 'left', fontWeight: '700',
-                                                color: 'var(--gray-600)', fontSize: '0.8rem', textTransform: 'uppercase',
-                                                letterSpacing: '0.5px', whiteSpace: 'nowrap',
-                                            }}>
-                                                {h}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {leads.map((lead) => {
-                                        const statusConf = STATUS_CONFIG[lead.status] || STATUS_CONFIG.new;
-                                        return (
-                                            <tr
-                                                key={lead.id}
-                                                style={{
-                                                    borderBottom: '1px solid #f1f5f9',
-                                                    cursor: 'pointer',
-                                                    transition: '0.2s ease',
-                                                }}
-                                                onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
-                                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                                                onClick={() => setSelectedLead(lead)}
-                                            >
-                                                <td style={{ padding: '14px 16px', fontWeight: '600', color: 'var(--gray-800)' }}>
-                                                    {lead.name}
-                                                </td>
-                                                <td style={{ padding: '14px 16px', color: 'var(--gray-600)' }}>{lead.email}</td>
-                                                <td style={{ padding: '14px 16px', color: 'var(--gray-600)', whiteSpace: 'nowrap' }}>{lead.phone}</td>
-                                                <td style={{ padding: '14px 16px', color: 'var(--gray-600)' }}>{getCourseLabel(lead.course)}</td>
-                                                <td style={{ padding: '14px 16px' }}>
-                                                    <span style={{
-                                                        display: 'inline-block', padding: '4px 14px', borderRadius: '999px',
-                                                        fontSize: '0.78rem', fontWeight: '600',
-                                                        background: statusConf.bg, color: statusConf.color,
-                                                    }}>
-                                                        {statusConf.label}
-                                                    </span>
-                                                </td>
-                                                <td style={{ padding: '14px 16px', color: 'var(--gray-400)', fontSize: '0.85rem', whiteSpace: 'nowrap' }}>
-                                                    {formatDate(lead.createdAt)}
-                                                </td>
-                                                <td style={{ padding: '14px 16px' }}>
-                                                    <div style={{ display: 'flex', gap: '6px' }} onClick={(e) => e.stopPropagation()}>
-                                                        <select
-                                                            value={lead.status}
-                                                            onChange={(e) => updateLeadStatus(lead.id, e.target.value)}
-                                                            style={{
-                                                                padding: '6px 10px', borderRadius: '8px', border: '1px solid #e2e8f0',
-                                                                fontSize: '0.8rem', fontFamily: 'var(--font-sans)', cursor: 'pointer',
-                                                                background: 'white', outline: 'none',
-                                                            }}
-                                                        >
-                                                            <option value="new">New</option>
-                                                            <option value="contacted">Contacted</option>
-                                                            <option value="converted">Converted</option>
-                                                            <option value="closed">Closed</option>
-                                                        </select>
-                                                        <button
-                                                            onClick={() => deleteLead(lead.id)}
-                                                            style={{
-                                                                padding: '6px 10px', borderRadius: '8px', border: '1px solid #fecaca',
-                                                                background: '#fff', cursor: 'pointer', fontSize: '0.85rem',
-                                                            }}
-                                                            title="Delete lead"
-                                                        >
-                                                            🗑️
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
+                {/* Specializations Tab */}
+                {activeTab === 'specializations' && (
+                    <AdminContentManager type="specializations" onLogout={handleLogout} />
+                )}
+
+                {/* Hero Slider Tab */}
+                {activeTab === 'hero-slider' && (
+                    <HeroSliderManager onLogout={handleLogout} />
+                )}
+
+                {/* Leads Tab */}
+                {activeTab === 'leads' && (<>
+                    {/* Stats Cards */}
+                    {stats && (
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                            gap: '16px',
+                            marginBottom: '32px',
+                        }}>
+                            {[
+                                { label: 'Total Leads', value: stats.stats.total, icon: '📋', gradient: 'linear-gradient(135deg, #4f46e5, #7c3aed)' },
+                                { label: 'New Leads', value: stats.stats.new, icon: '🆕', gradient: 'linear-gradient(135deg, #0ea5e9, #06b6d4)' },
+                                { label: 'Contacted', value: stats.stats.contacted, icon: '📞', gradient: 'linear-gradient(135deg, #f59e0b, #f97316)' },
+                                { label: 'Converted', value: stats.stats.converted, icon: '✅', gradient: 'linear-gradient(135deg, #10b981, #14b8a6)' },
+                                { label: "Today's Leads", value: stats.stats.today, icon: '📅', gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)' },
+                            ].map((stat, i) => (
+                                <div key={i} style={{
+                                    background: 'white',
+                                    borderRadius: '16px',
+                                    padding: '24px',
+                                    border: '1px solid #e2e8f0',
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                }}>
+                                    <div style={{
+                                        position: 'absolute', top: '-20px', right: '-20px', width: '80px', height: '80px',
+                                        background: stat.gradient, borderRadius: '50%', opacity: 0.1,
+                                    }} />
+                                    <div style={{ fontSize: '1.5rem', marginBottom: '8px' }}>{stat.icon}</div>
+                                    <div style={{
+                                        fontFamily: 'var(--font-serif)', fontSize: '2rem', fontWeight: '800',
+                                        color: 'var(--gray-900)', lineHeight: 1,
+                                    }}>
+                                        {stat.value}
+                                    </div>
+                                    <div style={{ fontSize: '0.85rem', color: 'var(--gray-500)', marginTop: '4px', fontWeight: '500' }}>
+                                        {stat.label}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     )}
-                </div>
 
-                {/* Lead count */}
-                {!loading && leads.length > 0 && (
+                    {/* Filters Bar */}
                     <div style={{
-                        marginTop: '16px', fontSize: '0.85rem', color: 'var(--gray-400)', textAlign: 'right',
+                        background: 'white',
+                        borderRadius: '16px',
+                        padding: '20px 24px',
+                        border: '1px solid #e2e8f0',
+                        display: 'flex',
+                        gap: '16px',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        marginBottom: '24px',
                     }}>
-                        Showing {leads.length} lead{leads.length !== 1 ? 's' : ''}
-                    </div>
-                )}
-
-                {/* Lead Detail Modal */}
-                {selectedLead && (
-                    <div
-                        style={{
-                            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-                            background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(5px)',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            zIndex: 9999, padding: '24px',
-                        }}
-                        onClick={() => setSelectedLead(null)}
-                    >
-                        <div
-                            style={{
-                                background: 'white', borderRadius: '20px', padding: '36px',
-                                maxWidth: '560px', width: '100%', maxHeight: '80vh', overflowY: 'auto',
-                                boxShadow: '0 25px 50px rgba(0,0,0,0.15)',
-                            }}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <div style={{
-                                display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-                                marginBottom: '28px',
-                            }}>
-                                <div>
-                                    <h2 style={{
-                                        fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: '700',
-                                        color: 'var(--gray-900)', marginBottom: '4px',
-                                    }}>
-                                        {selectedLead.name}
-                                    </h2>
-                                    <span style={{
-                                        display: 'inline-block', padding: '4px 14px', borderRadius: '999px',
-                                        fontSize: '0.78rem', fontWeight: '600',
-                                        background: (STATUS_CONFIG[selectedLead.status] || STATUS_CONFIG.new).bg,
-                                        color: (STATUS_CONFIG[selectedLead.status] || STATUS_CONFIG.new).color,
-                                    }}>
-                                        {(STATUS_CONFIG[selectedLead.status] || STATUS_CONFIG.new).label}
-                                    </span>
-                                </div>
+                        <div style={{ flex: 1, minWidth: '240px' }}>
+                            <input
+                                type="text"
+                                placeholder="🔍 Search by name, email, phone, or course..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                style={{
+                                    width: '100%', padding: '12px 18px', border: '2px solid #e2e8f0',
+                                    borderRadius: '12px', fontSize: '0.9rem', fontFamily: 'var(--font-sans)',
+                                    outline: 'none', transition: '0.3s ease',
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = '#818cf8'}
+                                onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+                                id="admin-search"
+                            />
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                            {['all', 'new', 'contacted', 'converted', 'closed'].map((status) => (
                                 <button
-                                    onClick={() => setSelectedLead(null)}
+                                    key={status}
+                                    onClick={() => setFilterStatus(status)}
                                     style={{
-                                        background: 'none', border: 'none', fontSize: '1.5rem',
-                                        cursor: 'pointer', color: 'var(--gray-400)', lineHeight: 1,
+                                        padding: '10px 20px',
+                                        borderRadius: '999px',
+                                        border: 'none',
+                                        fontSize: '0.85rem',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        fontFamily: 'var(--font-sans)',
+                                        transition: '0.3s ease',
+                                        background: filterStatus === status ? 'var(--gradient-primary)' : '#f1f5f9',
+                                        color: filterStatus === status ? 'white' : '#64748b',
                                     }}
+                                    id={`filter-${status}`}
                                 >
-                                    ✕
+                                    {status === 'all' ? 'All' : STATUS_CONFIG[status]?.label || status}
                                 </button>
-                            </div>
-
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                                {[
-                                    { label: 'Email', value: selectedLead.email, icon: '✉️' },
-                                    { label: 'Phone', value: selectedLead.phone, icon: '📞' },
-                                    { label: 'Interested Program', value: getCourseLabel(selectedLead.course), icon: '🎓' },
-                                    { label: 'Submitted On', value: formatDate(selectedLead.createdAt), icon: '📅' },
-                                ].map((item, i) => (
-                                    <div key={i} style={{
-                                        display: 'flex', gap: '14px', alignItems: 'center',
-                                        padding: '14px 16px', background: '#f8fafc', borderRadius: '12px',
-                                    }}>
-                                        <div style={{ fontSize: '1.2rem', width: '36px', textAlign: 'center' }}>{item.icon}</div>
-                                        <div>
-                                            <div style={{ fontSize: '0.75rem', color: 'var(--gray-400)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                                                {item.label}
-                                            </div>
-                                            <div style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--gray-800)', marginTop: '2px' }}>
-                                                {item.value}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-
-                                {selectedLead.message && (
-                                    <div style={{
-                                        padding: '16px', background: '#f8fafc', borderRadius: '12px',
-                                    }}>
-                                        <div style={{
-                                            fontSize: '0.75rem', color: 'var(--gray-400)', fontWeight: '600',
-                                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px',
-                                        }}>
-                                            💬 Message
-                                        </div>
-                                        <div style={{
-                                            fontSize: '0.9rem', color: 'var(--gray-600)', lineHeight: '1.7',
-                                            whiteSpace: 'pre-wrap',
-                                        }}>
-                                            {selectedLead.message}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-
-                            <div style={{
-                                display: 'flex', gap: '10px', marginTop: '28px', paddingTop: '20px',
-                                borderTop: '1px solid #e2e8f0',
-                            }}>
-                                <select
-                                    value={selectedLead.status}
-                                    onChange={(e) => {
-                                        updateLeadStatus(selectedLead.id, e.target.value);
-                                        setSelectedLead({ ...selectedLead, status: e.target.value });
-                                    }}
-                                    style={{
-                                        flex: 1, padding: '12px 16px', borderRadius: '12px', border: '2px solid #e2e8f0',
-                                        fontSize: '0.9rem', fontFamily: 'var(--font-sans)', cursor: 'pointer',
-                                        outline: 'none',
-                                    }}
-                                >
-                                    <option value="new">🆕 New</option>
-                                    <option value="contacted">📞 Contacted</option>
-                                    <option value="converted">✅ Converted</option>
-                                    <option value="closed">❌ Closed</option>
-                                </select>
-                                <button
-                                    onClick={() => { deleteLead(selectedLead.id); setSelectedLead(null); }}
-                                    style={{
-                                        padding: '12px 24px', borderRadius: '12px', border: '2px solid #fecaca',
-                                        background: '#fff', cursor: 'pointer', fontSize: '0.9rem',
-                                        fontFamily: 'var(--font-sans)', fontWeight: '600', color: '#ef4444',
-                                    }}
-                                >
-                                    🗑️ Delete
-                                </button>
-                            </div>
+                            ))}
                         </div>
                     </div>
-                )}
+
+                    {error && (
+                        <div style={{
+                            background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '12px',
+                            padding: '16px 20px', color: '#991b1b', marginBottom: '24px', fontSize: '0.95rem',
+                        }}>
+                            ⚠️ {error}
+                        </div>
+                    )}
+
+                    {/* Leads Table */}
+                    <div style={{
+                        background: 'white',
+                        borderRadius: '16px',
+                        border: '1px solid #e2e8f0',
+                        overflow: 'hidden',
+                    }}>
+                        {loading ? (
+                            <div style={{ padding: '60px', textAlign: 'center', color: 'var(--gray-400)' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '12px' }}>⏳</div>
+                                Loading leads...
+                            </div>
+                        ) : leads.length === 0 ? (
+                            <div style={{ padding: '60px', textAlign: 'center', color: 'var(--gray-400)' }}>
+                                <div style={{ fontSize: '3rem', marginBottom: '12px' }}>📭</div>
+                                <div style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--gray-600)', marginBottom: '8px' }}>
+                                    No leads found
+                                </div>
+                                <div style={{ fontSize: '0.9rem' }}>
+                                    {filterStatus !== 'all' || searchQuery
+                                        ? 'Try adjusting your filters or search query.'
+                                        : 'Leads submitted via the contact form will appear here.'}
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={{ overflowX: 'auto' }}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+                                    <thead>
+                                        <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                                            {['Name', 'Email', 'Phone', 'Program', 'Status', 'Date', 'Actions'].map((h) => (
+                                                <th key={h} style={{
+                                                    padding: '14px 16px', textAlign: 'left', fontWeight: '700',
+                                                    color: 'var(--gray-600)', fontSize: '0.8rem', textTransform: 'uppercase',
+                                                    letterSpacing: '0.5px', whiteSpace: 'nowrap',
+                                                }}>
+                                                    {h}
+                                                </th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {leads.map((lead) => {
+                                            const statusConf = STATUS_CONFIG[lead.status] || STATUS_CONFIG.new;
+                                            return (
+                                                <tr
+                                                    key={lead.id}
+                                                    style={{
+                                                        borderBottom: '1px solid #f1f5f9',
+                                                        cursor: 'pointer',
+                                                        transition: '0.2s ease',
+                                                    }}
+                                                    onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
+                                                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                                    onClick={() => setSelectedLead(lead)}
+                                                >
+                                                    <td style={{ padding: '14px 16px', fontWeight: '600', color: 'var(--gray-800)' }}>
+                                                        {lead.name}
+                                                    </td>
+                                                    <td style={{ padding: '14px 16px', color: 'var(--gray-600)' }}>{lead.email}</td>
+                                                    <td style={{ padding: '14px 16px', color: 'var(--gray-600)', whiteSpace: 'nowrap' }}>{lead.phone}</td>
+                                                    <td style={{ padding: '14px 16px', color: 'var(--gray-600)' }}>{getCourseLabel(lead.course)}</td>
+                                                    <td style={{ padding: '14px 16px' }}>
+                                                        <span style={{
+                                                            display: 'inline-block', padding: '4px 14px', borderRadius: '999px',
+                                                            fontSize: '0.78rem', fontWeight: '600',
+                                                            background: statusConf.bg, color: statusConf.color,
+                                                        }}>
+                                                            {statusConf.label}
+                                                        </span>
+                                                    </td>
+                                                    <td style={{ padding: '14px 16px', color: 'var(--gray-400)', fontSize: '0.85rem', whiteSpace: 'nowrap' }}>
+                                                        {formatDate(lead.createdAt)}
+                                                    </td>
+                                                    <td style={{ padding: '14px 16px' }}>
+                                                        <div style={{ display: 'flex', gap: '6px' }} onClick={(e) => e.stopPropagation()}>
+                                                            <select
+                                                                value={lead.status}
+                                                                onChange={(e) => updateLeadStatus(lead.id, e.target.value)}
+                                                                style={{
+                                                                    padding: '6px 10px', borderRadius: '8px', border: '1px solid #e2e8f0',
+                                                                    fontSize: '0.8rem', fontFamily: 'var(--font-sans)', cursor: 'pointer',
+                                                                    background: 'white', outline: 'none',
+                                                                }}
+                                                            >
+                                                                <option value="new">New</option>
+                                                                <option value="contacted">Contacted</option>
+                                                                <option value="converted">Converted</option>
+                                                                <option value="closed">Closed</option>
+                                                            </select>
+                                                            <button
+                                                                onClick={() => deleteLead(lead.id)}
+                                                                style={{
+                                                                    padding: '6px 10px', borderRadius: '8px', border: '1px solid #fecaca',
+                                                                    background: '#fff', cursor: 'pointer', fontSize: '0.85rem',
+                                                                }}
+                                                                title="Delete lead"
+                                                            >
+                                                                🗑️
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Lead count */}
+                    {!loading && leads.length > 0 && (
+                        <div style={{
+                            marginTop: '16px', fontSize: '0.85rem', color: 'var(--gray-400)', textAlign: 'right',
+                        }}>
+                            Showing {leads.length} lead{leads.length !== 1 ? 's' : ''}
+                        </div>
+                    )}
+
+                    {/* Lead Detail Modal */}
+                    {selectedLead && (
+                        <div
+                            style={{
+                                position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                                background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(5px)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                zIndex: 9999, padding: '24px',
+                            }}
+                            onClick={() => setSelectedLead(null)}
+                        >
+                            <div
+                                style={{
+                                    background: 'white', borderRadius: '20px', padding: '36px',
+                                    maxWidth: '560px', width: '100%', maxHeight: '80vh', overflowY: 'auto',
+                                    boxShadow: '0 25px 50px rgba(0,0,0,0.15)',
+                                }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <div style={{
+                                    display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
+                                    marginBottom: '28px',
+                                }}>
+                                    <div>
+                                        <h2 style={{
+                                            fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: '700',
+                                            color: 'var(--gray-900)', marginBottom: '4px',
+                                        }}>
+                                            {selectedLead.name}
+                                        </h2>
+                                        <span style={{
+                                            display: 'inline-block', padding: '4px 14px', borderRadius: '999px',
+                                            fontSize: '0.78rem', fontWeight: '600',
+                                            background: (STATUS_CONFIG[selectedLead.status] || STATUS_CONFIG.new).bg,
+                                            color: (STATUS_CONFIG[selectedLead.status] || STATUS_CONFIG.new).color,
+                                        }}>
+                                            {(STATUS_CONFIG[selectedLead.status] || STATUS_CONFIG.new).label}
+                                        </span>
+                                    </div>
+                                    <button
+                                        onClick={() => setSelectedLead(null)}
+                                        style={{
+                                            background: 'none', border: 'none', fontSize: '1.5rem',
+                                            cursor: 'pointer', color: 'var(--gray-400)', lineHeight: 1,
+                                        }}
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                                    {[
+                                        { label: 'Email', value: selectedLead.email, icon: '✉️' },
+                                        { label: 'Phone', value: selectedLead.phone, icon: '📞' },
+                                        { label: 'Interested Program', value: getCourseLabel(selectedLead.course), icon: '🎓' },
+                                        { label: 'Submitted On', value: formatDate(selectedLead.createdAt), icon: '📅' },
+                                    ].map((item, i) => (
+                                        <div key={i} style={{
+                                            display: 'flex', gap: '14px', alignItems: 'center',
+                                            padding: '14px 16px', background: '#f8fafc', borderRadius: '12px',
+                                        }}>
+                                            <div style={{ fontSize: '1.2rem', width: '36px', textAlign: 'center' }}>{item.icon}</div>
+                                            <div>
+                                                <div style={{ fontSize: '0.75rem', color: 'var(--gray-400)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                                    {item.label}
+                                                </div>
+                                                <div style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--gray-800)', marginTop: '2px' }}>
+                                                    {item.value}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {selectedLead.message && (
+                                        <div style={{
+                                            padding: '16px', background: '#f8fafc', borderRadius: '12px',
+                                        }}>
+                                            <div style={{
+                                                fontSize: '0.75rem', color: 'var(--gray-400)', fontWeight: '600',
+                                                textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px',
+                                            }}>
+                                                💬 Message
+                                            </div>
+                                            <div style={{
+                                                fontSize: '0.9rem', color: 'var(--gray-600)', lineHeight: '1.7',
+                                                whiteSpace: 'pre-wrap',
+                                            }}>
+                                                {selectedLead.message}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div style={{
+                                    display: 'flex', gap: '10px', marginTop: '28px', paddingTop: '20px',
+                                    borderTop: '1px solid #e2e8f0',
+                                }}>
+                                    <select
+                                        value={selectedLead.status}
+                                        onChange={(e) => {
+                                            updateLeadStatus(selectedLead.id, e.target.value);
+                                            setSelectedLead({ ...selectedLead, status: e.target.value });
+                                        }}
+                                        style={{
+                                            flex: 1, padding: '12px 16px', borderRadius: '12px', border: '2px solid #e2e8f0',
+                                            fontSize: '0.9rem', fontFamily: 'var(--font-sans)', cursor: 'pointer',
+                                            outline: 'none',
+                                        }}
+                                    >
+                                        <option value="new">🆕 New</option>
+                                        <option value="contacted">📞 Contacted</option>
+                                        <option value="converted">✅ Converted</option>
+                                        <option value="closed">❌ Closed</option>
+                                    </select>
+                                    <button
+                                        onClick={() => { deleteLead(selectedLead.id); setSelectedLead(null); }}
+                                        style={{
+                                            padding: '12px 24px', borderRadius: '12px', border: '2px solid #fecaca',
+                                            background: '#fff', cursor: 'pointer', fontSize: '0.9rem',
+                                            fontFamily: 'var(--font-sans)', fontWeight: '600', color: '#ef4444',
+                                        }}
+                                    >
+                                        🗑️ Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </>)}
             </div>
         </div>
     );

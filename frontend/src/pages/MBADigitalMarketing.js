@@ -6,7 +6,7 @@ const config = {
     title: 'MBA in Digital Marketing',
     subtitle: 'Lead the digital revolution with an MBA in Digital Marketing — the most in-demand specialization for the new age of business and consumer engagement.',
     icon: '📱',
-    heroGradient: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+    heroBackgroundImage: '',
     overview: [
         'An MBA in Digital Marketing is the fastest-growing specialization in management education, driven by the explosive growth of digital platforms, e-commerce, and online consumer behavior. This program combines traditional marketing strategy with cutting-edge digital skills including SEO, SEM, social media marketing, content strategy, marketing automation, and advanced analytics.',
         'India\'s digital advertising market is growing at 30%+ annually, and every company — from startups to Fortune 500 — is investing heavily in digital transformation. An MBA digital marketing degree prepares you to lead this transformation, whether you\'re managing a brand\'s social media presence, running multi-million dollar performance campaigns, or building a company\'s entire digital strategy.',

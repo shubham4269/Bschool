@@ -1,69 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useApplyModal } from '../context/ApplyModalContext';
+import useScrollAnimation from '../hooks/useScrollAnimation';
+import CountUp from '../components/CountUp';
+import HeroSlider from '../components/HeroSlider';
 
-const courses = [
-    {
-        path: '/mba-admission',
-        title: 'MBA Admission',
-        icon: '🎓',
-        badge: 'Popular',
-        desc: 'Get admitted to top MBA colleges across India with expert guidance on entrance exams, applications, and interviews.',
-        duration: '2 Years',
-        mode: 'Full-time',
-        gradient: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
-    },
-    {
-        path: '/pgdm-admission',
-        title: 'PGDM Admission',
-        icon: '📋',
-        badge: 'AICTE Approved',
-        desc: 'Post Graduate Diploma in Management from AICTE-approved institutions with industry-aligned curriculum.',
-        duration: '2 Years',
-        mode: 'Full-time',
-        gradient: 'linear-gradient(135deg, #0ea5e9, #06b6d4)',
-    },
-    {
-        path: '/mba-without-cat',
-        title: 'MBA Without CAT',
-        icon: '🚀',
-        badge: 'No CAT Score',
-        desc: 'Explore top MBA colleges that accept MAT, XAT, ATMA, CMAT and other entrance exams beyond CAT.',
-        duration: '2 Years',
-        mode: 'Full-time',
-        gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)',
-    },
-    {
-        path: '/direct-mba-admission',
-        title: 'Direct MBA Admission',
-        icon: '⚡',
-        badge: 'Fast Track',
-        desc: 'Secure direct admission in management programs based on merit, work experience, and academic performance.',
-        duration: '2 Years',
-        mode: 'Full-time',
-        gradient: 'linear-gradient(135deg, #10b981, #14b8a6)',
-    },
-    {
-        path: '/executive-mba',
-        title: 'Executive MBA',
-        icon: '💼',
-        badge: 'For Professionals',
-        desc: 'Advance your career with weekend and part-time MBA programs designed for working professionals.',
-        duration: '1-2 Years',
-        mode: 'Part-time',
-        gradient: 'linear-gradient(135deg, #8b5cf6, #a855f7)',
-    },
-    {
-        path: '/distance-online-mba',
-        title: 'Distance / Online MBA',
-        icon: '🌐',
-        badge: 'UGC Approved',
-        desc: 'Study from anywhere with UGC-recognized distance and online MBA programs from top universities.',
-        duration: '2 Years',
-        mode: 'Online',
-        gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)',
-    },
-];
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const testimonials = [
     {
@@ -88,12 +30,40 @@ const testimonials = [
 
 function Home() {
     const { openModal } = useApplyModal();
+    const [services, setServices] = useState([]);
+    const [specializations, setSpecializations] = useState([]);
+    const [heroImages, setHeroImages] = useState([]);
+    const scrollRef = useScrollAnimation();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [servicesRes, specsRes, heroRes] = await Promise.all([
+                    fetch(`${API_URL}/api/services`),
+                    fetch(`${API_URL}/api/specializations`),
+                    fetch(`${API_URL}/api/settings/hero-images`),
+                ]);
+                const servicesData = await servicesRes.json();
+                const specsData = await specsRes.json();
+                const heroData = await heroRes.json();
+
+                if (servicesData.success) setServices(servicesData.services);
+                if (specsData.success) setSpecializations(specsData.specializations);
+                if (heroData.success) setHeroImages(heroData.images);
+            } catch (err) {
+                console.error('Failed to fetch programs:', err);
+            }
+        };
+        fetchData();
+    }, []);
+
     return (
-        <>
+        <div ref={scrollRef}>
             {/* ===== HERO SECTION ===== */}
-            <section className="hero" id="home-hero">
-                <div className="hero-content">
-                    <div className="hero-text-side">
+            <section className="hero" id="home-hero" style={{ position: 'relative' }}>
+                <HeroSlider images={heroImages} />
+                <div className="hero-content" style={{ pointerEvents: 'none' }}>
+                    <div className="hero-text-side" style={{ pointerEvents: 'auto' }}>
                         <div className="hero-badge fade-in">
                             <span className="hero-badge-dot"></span>
                             Admissions Open 2026-27
@@ -105,7 +75,7 @@ function Home() {
                             Expert guidance for MBA, PGDM & Executive programs. We've helped 15,000+ students get admitted to leading B-schools including IIMs, XLRI, ISB & more.
                         </p>
                         <div className="hero-buttons fade-in fade-in-delay-3">
-                            <button onClick={() => openModal()} className="btn btn-accent btn-lg" id="hero-apply-btn">
+                            <button onClick={() => openModal()} className="btn btn-accent btn-lg btn-glow" id="hero-apply-btn">
                                 Apply Now →
                             </button>
                             <Link to="/about" className="btn btn-outline-white btn-lg" id="hero-learn-btn">
@@ -114,21 +84,27 @@ function Home() {
                         </div>
                         <div className="hero-stats fade-in fade-in-delay-4">
                             <div>
-                                <div className="hero-stat-value">15K<span>+</span></div>
+                                <div className="hero-stat-value">
+                                    <CountUp end={15} suffix="" /><span>K+</span>
+                                </div>
                                 <div className="hero-stat-label">Students Placed</div>
                             </div>
                             <div>
-                                <div className="hero-stat-value">200<span>+</span></div>
+                                <div className="hero-stat-value">
+                                    <CountUp end={200} /><span>+</span>
+                                </div>
                                 <div className="hero-stat-label">Partner Colleges</div>
                             </div>
                             <div>
-                                <div className="hero-stat-value">98<span>%</span></div>
+                                <div className="hero-stat-value">
+                                    <CountUp end={98} /><span>%</span>
+                                </div>
                                 <div className="hero-stat-label">Success Rate</div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="hero-visual fade-in fade-in-delay-2">
+                    <div className="hero-visual fade-in fade-in-delay-2" style={{ pointerEvents: 'auto' }}>
                         <div className="hero-image-wrapper">
                             <div className="hero-image-card">
                                 <div className="hero-image-inner">
@@ -159,54 +135,125 @@ function Home() {
             {/* ===== STATS BAR ===== */}
             <section className="stats-bar" id="home-stats">
                 <div className="stats-bar-inner">
-                    <div className="stat-item fade-in">
-                        <div className="stat-number">15,000<span>+</span></div>
-                        <div className="stat-label">Students Enrolled</div>
-                    </div>
-                    <div className="stat-item fade-in fade-in-delay-1">
-                        <div className="stat-number">200<span>+</span></div>
-                        <div className="stat-label">Partner B-Schools</div>
-                    </div>
-                    <div className="stat-item fade-in fade-in-delay-2">
-                        <div className="stat-number">50<span>+</span></div>
-                        <div className="stat-label">Cities Covered</div>
-                    </div>
-                    <div className="stat-item fade-in fade-in-delay-3">
-                        <div className="stat-number">12<span>+</span></div>
-                        <div className="stat-label">Years Experience</div>
-                    </div>
+                    {[
+                        { end: 15000, suffix: '+', label: 'Students Enrolled' },
+                        { end: 200, suffix: '+', label: 'Partner B-Schools' },
+                        { end: 50, suffix: '+', label: 'Cities Covered' },
+                        { end: 12, suffix: '+', label: 'Years Experience' },
+                    ].map((stat, i) => (
+                        <div className="stat-item" data-animate="fade-up" data-delay={i * 100} key={stat.label}>
+                            <div className="stat-number">
+                                <CountUp end={stat.end} duration={2200} /><span>{stat.suffix}</span>
+                            </div>
+                            <div className="stat-label">{stat.label}</div>
+                        </div>
+                    ))}
                 </div>
             </section>
 
-            {/* ===== COURSES SECTION ===== */}
-            <section className="section" id="home-courses" style={{ background: 'white' }}>
+            {/* ===== SERVICES SECTION ===== */}
+            <section className="section" id="home-services" style={{ background: 'white' }}>
                 <div className="container">
-                    <div className="section-header">
-                        <div className="section-label">Our Programs</div>
-                        <h2 className="section-title">Explore MBA & Management Programs</h2>
+                    <div className="section-header" data-animate="fade-up">
+                        <div className="section-label">Our Services</div>
+                        <h2 className="section-title title-reveal">MBA & Management Services</h2>
                         <p className="section-subtitle">
-                            Choose from a wide range of management programs tailored to your career goals, schedule, and academic background.
+                            Comprehensive admission services to help you get into the right MBA or management program based on your goals and preferences.
                         </p>
                     </div>
 
                     <div className="course-grid">
-                        {courses.map((course, i) => (
-                            <Link to={course.path} key={course.path} className="course-card fade-in" style={{ animationDelay: `${i * 0.1}s` }} id={`course-card-${course.path.slice(1)}`}>
-                                <div className="course-card-image" style={{ background: course.gradient }}>
-                                    <div className="course-card-emoji">{course.icon}</div>
-                                    <div className="course-card-badge">{course.badge}</div>
+                        {services.map((service, i) => (
+                            <Link
+                                to={`/service/${service.slug}`}
+                                key={service.slug}
+                                className="course-card card-tilt"
+                                data-animate="zoom-in"
+                                data-delay={i * 100}
+                                id={`service-card-${service.slug}`}
+                            >
+                                <div className="course-card-image" style={{ 
+                                    background: service.cardBackgroundImage 
+                                        ? `url(${service.cardBackgroundImage})` 
+                                        : 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat',
+                                    minHeight: '200px',
+                                    height: '200px'
+                                }}>
+                                    {!service.cardBackgroundImage && (
+                                        <div className="course-card-emoji">{service.icon}</div>
+                                    )}
+                                    <div className="course-card-badge">{service.badge}</div>
                                 </div>
                                 <div className="course-card-body">
-                                    <h3 className="course-card-title">{course.title}</h3>
-                                    <p className="course-card-text">{course.desc}</p>
+                                    <h3 className="course-card-title">{service.title}</h3>
+                                    <p className="course-card-text">{service.shortDesc}</p>
                                     <div className="course-card-meta">
                                         <div className="course-card-meta-item">
                                             <span className="course-card-meta-icon">⏱️</span>
-                                            {course.duration}
+                                            {service.duration}
                                         </div>
                                         <div className="course-card-meta-item">
                                             <span className="course-card-meta-icon">📍</span>
-                                            {course.mode}
+                                            {service.mode}
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== SPECIALIZATIONS SECTION ===== */}
+            <section className="section" id="home-specializations" style={{ background: 'var(--gray-50)' }}>
+                <div className="container">
+                    <div className="section-header" data-animate="fade-up">
+                        <div className="section-label">Specializations</div>
+                        <h2 className="section-title title-reveal">MBA Specialization Programs</h2>
+                        <p className="section-subtitle">
+                            Choose from industry-leading MBA specializations to focus your career in your area of passion and expertise.
+                        </p>
+                    </div>
+
+                    <div className="course-grid">
+                        {specializations.map((spec, i) => (
+                            <Link
+                                to={`/specialization/${spec.slug}`}
+                                key={spec.slug}
+                                className="course-card card-tilt"
+                                data-animate="zoom-in"
+                                data-delay={i * 100}
+                                id={`spec-card-${spec.slug}`}
+                            >
+                                <div className="course-card-image" style={{ 
+                                    background: spec.cardBackgroundImage 
+                                        ? `url(${spec.cardBackgroundImage})` 
+                                        : 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat',
+                                    minHeight: '200px',
+                                    height: '200px'
+                                }}>
+                                    {!spec.cardBackgroundImage && (
+                                        <div className="course-card-emoji">{spec.icon}</div>
+                                    )}
+                                    <div className="course-card-badge">{spec.badge}</div>
+                                </div>
+                                <div className="course-card-body">
+                                    <h3 className="course-card-title">{spec.title}</h3>
+                                    <p className="course-card-text">{spec.shortDesc}</p>
+                                    <div className="course-card-meta">
+                                        <div className="course-card-meta-item">
+                                            <span className="course-card-meta-icon">⏱️</span>
+                                            {spec.duration}
+                                        </div>
+                                        <div className="course-card-meta-item">
+                                            <span className="course-card-meta-icon">📍</span>
+                                            {spec.mode}
                                         </div>
                                     </div>
                                 </div>
@@ -217,11 +264,11 @@ function Home() {
             </section>
 
             {/* ===== WHY CHOOSE US ===== */}
-            <section className="section" id="home-features" style={{ background: 'var(--gray-50)' }}>
+            <section className="section" id="home-features" style={{ background: 'white' }}>
                 <div className="container">
-                    <div className="section-header">
+                    <div className="section-header" data-animate="fade-up">
                         <div className="section-label">Why Choose Us</div>
-                        <h2 className="section-title">Your Success is Our Mission</h2>
+                        <h2 className="section-title title-reveal">Your Success is Our Mission</h2>
                         <p className="section-subtitle">
                             We go beyond just admissions — we guide you through your entire MBA journey from applying to graduating.
                         </p>
@@ -236,7 +283,7 @@ function Home() {
                             { icon: '💰', title: 'Scholarship Guidance', text: 'Comprehensive information on merit-based and need-based scholarships available at partner institutions.' },
                             { icon: '🤝', title: 'Placement Support', text: 'Access to our network of 500+ corporate partners for internship and placement opportunities post MBA.' },
                         ].map((feature, i) => (
-                            <div key={i} className="feature-card fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
+                            <div key={i} className="feature-card card-tilt" data-animate="fade-up" data-delay={i * 100}>
                                 <div className="feature-card-icon">{feature.icon}</div>
                                 <h3 className="feature-card-title">{feature.title}</h3>
                                 <p className="feature-card-text">{feature.text}</p>
@@ -247,11 +294,11 @@ function Home() {
             </section>
 
             {/* ===== TESTIMONIALS ===== */}
-            <section className="section" id="home-testimonials" style={{ background: 'white' }}>
+            <section className="section" id="home-testimonials" style={{ background: 'var(--gray-50)' }}>
                 <div className="container">
-                    <div className="section-header">
+                    <div className="section-header" data-animate="fade-up">
                         <div className="section-label">Testimonials</div>
-                        <h2 className="section-title">What Our Students Say</h2>
+                        <h2 className="section-title title-reveal">What Our Students Say</h2>
                         <p className="section-subtitle">
                             Hear from students who achieved their MBA dreams with our guidance and support.
                         </p>
@@ -259,7 +306,7 @@ function Home() {
 
                     <div className="features-grid">
                         {testimonials.map((testimonial, i) => (
-                            <div key={i} className="testimonial-card fade-in" style={{ animationDelay: `${i * 0.15}s` }}>
+                            <div key={i} className="testimonial-card card-tilt" data-animate="fade-up" data-delay={i * 150}>
                                 <div className="testimonial-stars">★ ★ ★ ★ ★</div>
                                 <p className="testimonial-text">{testimonial.text}</p>
                                 <div className="testimonial-author">
@@ -277,13 +324,13 @@ function Home() {
 
             {/* ===== CTA SECTION ===== */}
             <section className="cta-section" id="home-cta">
-                <div className="cta-content fade-in">
+                <div className="cta-content" data-animate="scale-in">
                     <h2 className="cta-title">Ready to Start Your MBA Journey?</h2>
                     <p className="cta-text">
                         Get free counseling from our experts and take the first step towards your dream B-school. Applications for 2026-27 are now open.
                     </p>
                     <div className="cta-buttons">
-                        <button onClick={() => openModal()} className="btn btn-accent btn-lg" id="cta-apply-btn">
+                        <button onClick={() => openModal()} className="btn btn-accent btn-lg btn-glow" id="cta-apply-btn">
                             Apply Now →
                         </button>
                         <Link to="/about" className="btn btn-outline-white btn-lg" id="cta-learn-btn">
@@ -292,7 +339,7 @@ function Home() {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
 

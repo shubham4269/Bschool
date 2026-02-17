@@ -6,7 +6,7 @@ const config = {
     title: 'MBA Without CAT',
     subtitle: 'Explore top MBA programs that accept scores from MAT, XAT, ATMA, CMAT, GMAT, and other non-CAT entrance exams.',
     icon: '🚀',
-    heroGradient: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+    heroBackgroundImage: '',
     overview: [
         'Not everyone cracks the CAT exam, but that doesn\'t mean your MBA dream has to end there. India has a thriving ecosystem of excellent B-schools that accept scores from alternative entrance exams like MAT, XAT, ATMA, CMAT, GMAT, and several state-level exams.',
         'Many of these institutions offer world-class education, excellent placements, and strong alumni networks — all without requiring a CAT score. Bschool Bridge specializes in helping students identify and get admitted to these high-quality non-CAT MBA programs.',
