@@ -1,0 +1,138 @@
+.college-logo-strip {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  overflow: hidden;
+}
+
+.strip-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.strip-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 10px;
+  font-family: var(--font-heading);
+}
+
+.strip-header p {
+  font-size: 1.1rem;
+  color: #718096;
+}
+
+.logo-scroll-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.logo-scroll-container::before,
+.logo-scroll-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-scroll-container::before {
+  left: 0;
+  background: linear-gradient(to right, #f7fafc, transparent);
+}
+
+.logo-scroll-container::after {
+  right: 0;
+  background: linear-gradient(to left, #edf2f7, transparent);
+}
+
+.logo-scroll-track {
+  display: flex;
+  gap: 60px;
+  animation: scroll 40s linear infinite;
+  width: fit-content;
+}
+
+.logo-scroll-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 0.3s;
+  min-width: 180px;
+  height: 80px;
+}
+
+.logo-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.logo-item img {
+  max-width: 150px;
+  max-height: 60px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(0%);
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.logo-item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .college-logo-strip {
+    padding: 40px 15px;
+  }
+
+  .strip-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .strip-header p {
+    font-size: 0.95rem;
+  }
+
+  .logo-scroll-track {
+    gap: 30px;
+    animation-duration: 30s;
+  }
+
+  .logo-item {
+    min-width: 140px;
+    height: 70px;
+    padding: 15px 20px;
+  }
+
+  .logo-item img {
+    max-width: 120px;
+    max-height: 50px;
+  }
+}

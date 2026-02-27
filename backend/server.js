@@ -16,6 +16,10 @@ const serviceRoutes = require('./src/routes/serviceRoutes');
 const specializationRoutes = require('./src/routes/specializationRoutes');
 const uploadRoutes = require('./src/routes/uploadRoutes');
 const settingsRoutes = require('./src/routes/settingsRoutes');
+const blogRoutes = require('./src/routes/blogRoutes');
+const adminBlogRoutes = require('./src/routes/adminBlogRoutes');
+const partnerRoutes = require('./src/routes/partnerRoutes');
+const adminPartnerRoutes = require('./src/routes/adminPartnerRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -32,6 +36,10 @@ app.use('/api/services', serviceRoutes);              // Public + Protected CRUD
 app.use('/api/specializations', specializationRoutes); // Public + Protected CRUD
 app.use('/api/upload', uploadRoutes);                 // Protected: Image uploads
 app.use('/api/settings', settingsRoutes);             // Public GET + Protected PUT
+app.use('/api/blog', blogRoutes);                     // Public: GET /api/blog
+app.use('/api/admin/blogs', adminBlogRoutes);         // Protected: Blog CRUD
+app.use('/api/partners', partnerRoutes);              // Public: GET /api/partners
+app.use('/api/admin/partners', adminPartnerRoutes);   // Protected: Partner CRUD
 
 // Start server
 async function startServer() {

@@ -7,7 +7,7 @@ function PrivacyPolicy() {
             <PageHero
                 title="Privacy Policy"
                 subtitle="Your privacy is important to us. This policy explains how Bschool Bridge collects, uses, and protects your personal information."
-                gradient="linear-gradient(135deg, #4f46e5, #7c3aed)"
+                gradient="linear-gradient(to right, #1E3A8A, #20282D)"
                 icon="🔒"
             />
 

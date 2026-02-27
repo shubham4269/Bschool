@@ -64,10 +64,12 @@ function Navbar() {
     <nav className={`navbar ${scrolled ? 'scrolled' : 'transparent'}`} id="main-navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo" id="logo-link">
-          <div className="navbar-logo-icon">B</div>
-          <div className="navbar-logo-text">
-            Bschool<span>Bridge</span>
-          </div>
+          <img
+            src="/logo.png"
+            alt="BschoolBridge Logo"
+            className="navbar-logo-img"
+            style={{ height: '55px', width: 'auto', objectFit: 'contain' }}
+          />
         </Link>
 
         <div className={`navbar-links ${mobileOpen ? 'open' : ''}`}>
@@ -150,6 +152,14 @@ function Navbar() {
 
           <Link to="/contact" className={`navbar-link ${isActive('/contact') ? 'active' : ''}`} id="nav-contact">
             Contact Us
+          </Link>
+
+          <Link to="/academic-partners" className={`navbar-link ${isActive('/academic-partners') ? 'active' : ''}`} id="nav-partners">
+            Academic Partners
+          </Link>
+
+          <Link to="/the-latest" className={`navbar-link ${isActive('/the-latest') ? 'active' : ''}`} id="nav-blog">
+            Blog
           </Link>
 
           <button onClick={() => { openModal(); setMobileOpen(false); }} className="btn btn-accent btn-sm navbar-cta" id="nav-cta">

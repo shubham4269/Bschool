@@ -222,7 +222,7 @@ function Contact() {
                                 justifyContent: 'center',
                                 gap: '32px',
                             }}>
-                                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', fontWeight: '700', color: 'white' }}>
+                                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', fontWeight: '700', color: 'white' }}>
                                     Why Students Choose Bschool Bridge
                                 </h3>
 

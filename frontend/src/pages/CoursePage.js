@@ -117,9 +117,9 @@ function CoursePage({ config }) {
                         {/* Sidebar */}
                         <div className="course-sidebar">
                             <div className="sidebar-card" data-animate="fade-left" data-delay="200">
-                                <div className="sidebar-card-header" style={{ 
-                                    background: heroBackgroundImage 
-                                        ? `linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.7)), url(${heroBackgroundImage})` 
+                                <div className="sidebar-card-header" style={{
+                                    background: heroBackgroundImage
+                                        ? `linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.7)), url(${heroBackgroundImage})`
                                         : 'var(--gradient-primary)',
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
@@ -157,7 +157,7 @@ function CoursePage({ config }) {
                             <div className="sidebar-card" data-animate="fade-left" data-delay="400">
                                 <div className="sidebar-card-body" style={{ textAlign: 'center' }}>
                                     <div style={{ fontSize: '2rem', marginBottom: '12px' }}>📞</div>
-                                    <h4 style={{ fontFamily: 'var(--font-serif)', marginBottom: '8px' }}>Need Help?</h4>
+                                    <h4 style={{ fontFamily: 'var(--font-heading)', marginBottom: '8px' }}>Need Help?</h4>
                                     <p style={{ fontSize: '0.9rem', color: 'var(--gray-500)', marginBottom: '12px' }}>
                                         Talk to our expert counselors
                                     </p>

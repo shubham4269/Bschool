@@ -47,7 +47,7 @@ function HeroSliderManager({ onLogout }) {
 
     const handleImageUpload = async (file) => {
         if (!file) return;
-        
+
         setUploading(true);
         setMessage('');
 
@@ -98,7 +98,7 @@ function HeroSliderManager({ onLogout }) {
 
     const handleRemoveImage = async (index) => {
         if (!window.confirm('Remove this image from the slider?')) return;
-        
+
         const newImages = images.filter((_, i) => i !== index);
         await saveImages(newImages);
         setMessage('🗑️ Image removed.');
@@ -107,9 +107,9 @@ function HeroSliderManager({ onLogout }) {
     const handleReorder = async (index, direction) => {
         const newImages = [...images];
         const newIndex = direction === 'up' ? index - 1 : index + 1;
-        
+
         if (newIndex < 0 || newIndex >= newImages.length) return;
-        
+
         [newImages[index], newImages[newIndex]] = [newImages[newIndex], newImages[index]];
         await saveImages(newImages);
     };
@@ -117,7 +117,7 @@ function HeroSliderManager({ onLogout }) {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
                     🎬 Hero Slider Images ({images.length})
                 </h2>
             </div>
@@ -145,7 +145,7 @@ function HeroSliderManager({ onLogout }) {
                         fontSize: '0.9rem', fontFamily: 'var(--font-sans)', outline: 'none',
                     }}
                 />
-                {uploading && <div style={{ marginTop: '10px', fontSize: '0.85rem', color: '#6366f1' }}>⏳ Uploading...</div>}
+                {uploading && <div style={{ marginTop: '10px', fontSize: '0.85rem', color: '#1E3A8A' }}>⏳ Uploading...</div>}
                 <div style={{ marginTop: '10px', fontSize: '0.85rem', color: '#64748b' }}>
                     Recommended: 1920x1080px, JPG format, under 500KB
                 </div>
@@ -163,9 +163,9 @@ function HeroSliderManager({ onLogout }) {
                     {images.map((image, index) => (
                         <div key={index} style={{ background: 'white', borderRadius: '16px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
                             <div style={{ position: 'relative', paddingTop: '56.25%', background: '#f8fafc' }}>
-                                <img 
-                                    src={image} 
-                                    alt={`Slide ${index + 1}`} 
+                                <img
+                                    src={image}
+                                    alt={`Slide ${index + 1}`}
                                     style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
                                 <div style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(0,0,0,0.7)', color: 'white', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: '600' }}>
@@ -174,17 +174,17 @@ function HeroSliderManager({ onLogout }) {
                             </div>
                             <div style={{ padding: '16px', display: 'flex', gap: '8px', justifyContent: 'space-between' }}>
                                 <div style={{ display: 'flex', gap: '8px' }}>
-                                    <button 
-                                        onClick={() => handleReorder(index, 'up')} 
+                                    <button
+                                        onClick={() => handleReorder(index, 'up')}
                                         disabled={index === 0}
-                                        style={{ ...btnStyle('#eef2ff', '#4f46e5'), opacity: index === 0 ? 0.5 : 1, cursor: index === 0 ? 'not-allowed' : 'pointer' }}
+                                        style={{ ...btnStyle('#eff6ff', '#1E3A8A'), opacity: index === 0 ? 0.5 : 1, cursor: index === 0 ? 'not-allowed' : 'pointer' }}
                                     >
                                         ↑
                                     </button>
-                                    <button 
-                                        onClick={() => handleReorder(index, 'down')} 
+                                    <button
+                                        onClick={() => handleReorder(index, 'down')}
                                         disabled={index === images.length - 1}
-                                        style={{ ...btnStyle('#eef2ff', '#4f46e5'), opacity: index === images.length - 1 ? 0.5 : 1, cursor: index === images.length - 1 ? 'not-allowed' : 'pointer' }}
+                                        style={{ ...btnStyle('#eff6ff', '#1E3A8A'), opacity: index === images.length - 1 ? 0.5 : 1, cursor: index === images.length - 1 ? 'not-allowed' : 'pointer' }}
                                     >
                                         ↓
                                     </button>

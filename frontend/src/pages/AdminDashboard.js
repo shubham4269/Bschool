@@ -5,7 +5,7 @@ import HeroSliderManager from '../components/HeroSliderManager';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const STATUS_CONFIG = {
-    new: { label: 'New', color: '#6366f1', bg: '#eef2ff' },
+    new: { label: 'New', color: '#1E3A8A', bg: '#eff6ff' },
     contacted: { label: 'Contacted', color: '#f59e0b', bg: '#fffbeb' },
     converted: { label: 'Converted', color: '#10b981', bg: '#ecfdf5' },
     closed: { label: 'Closed', color: '#ef4444', bg: '#fef2f2' },
@@ -82,7 +82,7 @@ function AdminLogin({ onLogin }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%)',
+            background: 'linear-gradient(135deg, #0A1119 0%, #111827 40%, #1E3A8A 100%)',
             padding: '24px',
         }}>
             <div style={{
@@ -99,18 +99,18 @@ function AdminLogin({ onLogin }) {
                 <div style={{ textAlign: 'center', marginBottom: '36px' }}>
                     <div style={{
                         width: '64px', height: '64px',
-                        background: 'linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7)',
+                        background: 'linear-gradient(to right, #1E3A8A, #20282D)',
                         borderRadius: '16px',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: '1.6rem', fontWeight: '900', color: 'white',
-                        fontFamily: "'Playfair Display', Georgia, serif",
+                        fontFamily: "var(--font-heading)",
                         margin: '0 auto 20px',
-                        boxShadow: '0 0 40px rgba(99, 102, 241, 0.3)',
+                        boxShadow: '0 0 30px rgba(30, 58, 138, 0.2)',
                     }}>
                         B
                     </div>
                     <h1 style={{
-                        fontFamily: "'Playfair Display', Georgia, serif",
+                        fontFamily: "var(--font-heading)",
                         fontSize: '1.8rem',
                         fontWeight: '800',
                         color: 'white',
@@ -179,7 +179,7 @@ function AdminLogin({ onLogin }) {
                                 boxSizing: 'border-box',
                             }}
                             onFocus={(e) => {
-                                e.target.style.borderColor = '#818cf8';
+                                e.target.style.borderColor = '#1E3A8A';
                                 e.target.style.background = 'rgba(255, 255, 255, 0.08)';
                             }}
                             onBlur={(e) => {
@@ -221,7 +221,7 @@ function AdminLogin({ onLogin }) {
                                 boxSizing: 'border-box',
                             }}
                             onFocus={(e) => {
-                                e.target.style.borderColor = '#818cf8';
+                                e.target.style.borderColor = '#1E3A8A';
                                 e.target.style.background = 'rgba(255, 255, 255, 0.08)';
                             }}
                             onBlur={(e) => {
@@ -238,7 +238,7 @@ function AdminLogin({ onLogin }) {
                         style={{
                             width: '100%',
                             padding: '16px',
-                            background: 'linear-gradient(135deg, #4f46e5, #7c3aed, #a855f7)',
+                            background: 'linear-gradient(to right, #1E3A8A, #20282D)',
                             border: 'none',
                             borderRadius: '12px',
                             color: 'white',
@@ -248,7 +248,7 @@ function AdminLogin({ onLogin }) {
                             cursor: loading ? 'not-allowed' : 'pointer',
                             transition: '0.3s ease',
                             opacity: loading ? 0.7 : 1,
-                            boxShadow: '0 4px 15px rgba(79, 70, 229, 0.4)',
+                            boxShadow: '0 4px 15px rgba(30, 58, 138, 0.3)',
                         }}
                     >
                         {loading ? '⏳ Signing in...' : '🔐 Sign In'}
@@ -258,9 +258,9 @@ function AdminLogin({ onLogin }) {
                 <div style={{
                     marginTop: '28px',
                     padding: '16px',
-                    background: 'rgba(99, 102, 241, 0.08)',
+                    background: 'rgba(30, 58, 138, 0.06)',
                     borderRadius: '12px',
-                    border: '1px solid rgba(99, 102, 241, 0.15)',
+                    border: '1px solid rgba(30, 58, 138, 0.12)',
                 }}>
                     <div style={{
                         fontSize: '0.8rem',
@@ -436,7 +436,7 @@ function AdminDashboard() {
             <div style={{
                 minHeight: '100vh',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%)',
+                background: 'linear-gradient(135deg, #0A1119 0%, #111827 40%, #1E3A8A 100%)',
             }}>
                 <div style={{ textAlign: 'center', color: 'white' }}>
                     <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>🔐</div>
@@ -467,7 +467,7 @@ function AdminDashboard() {
                 }}>
                     <div>
                         <h1 style={{
-                            fontFamily: 'var(--font-serif)', fontSize: '2.2rem', fontWeight: '800',
+                            fontFamily: 'var(--font-heading)', fontSize: '2.2rem', fontWeight: '800',
                             color: 'var(--gray-900)', marginBottom: '8px',
                         }}>
                             📊 Admin Dashboard
@@ -516,6 +516,8 @@ function AdminDashboard() {
                         { key: 'services', label: '🎓 Services' },
                         { key: 'specializations', label: '📚 Specializations' },
                         { key: 'hero-slider', label: '🎬 Hero Slider' },
+                        { key: 'blogs', label: '📝 Blog' },
+                        { key: 'partners', label: '🤝 Partners' },
                     ].map(tab => (
                         <button
                             key={tab.key}
@@ -549,6 +551,57 @@ function AdminDashboard() {
                     <HeroSliderManager onLogout={handleLogout} />
                 )}
 
+                {/* Blogs Tab */}
+                {activeTab === 'blogs' && (
+                    <div style={{ textAlign: 'center', padding: '40px' }}>
+                        <h2 style={{ marginBottom: '20px', color: '#2d3748' }}>Blog Management</h2>
+                        <p style={{ marginBottom: '30px', color: '#718096' }}>
+                            Manage your blog posts from the dedicated blog management page.
+                        </p>
+                        <a
+                            href="/admin/blogs"
+                            style={{
+                                display: 'inline-block',
+                                background: 'linear-gradient(to right, #667eea, #764ba2)',
+                                color: 'white',
+                                padding: '14px 32px',
+                                borderRadius: '8px',
+                                textDecoration: 'none',
+                                fontWeight: '600',
+                                transition: 'all 0.3s',
+                            }}
+                        >
+                            Go to Blog Management
+                        </a>
+                    </div>
+                )}
+
+                {/* Partners Tab */}
+                {activeTab === 'partners' && (
+                    <div style={{ textAlign: 'center', padding: '40px' }}>
+                        <h2 style={{ marginBottom: '20px', color: '#2d3748' }}>Partner Management</h2>
+                        <p style={{ marginBottom: '30px', color: '#718096' }}>
+                            Manage academic partner logos and categories.
+                        </p>
+                        <a
+                            href="/admin/partners"
+                            style={{
+                                display: 'inline-block',
+                                background: 'linear-gradient(to right, #667eea, #764ba2)',
+                                color: 'white',
+                                padding: '14px 32px',
+                                borderRadius: '8px',
+                                textDecoration: 'none',
+                                fontWeight: '600',
+                                transition: 'all 0.3s',
+                            }}
+                        >
+                            Go to Partner Management
+                        </a>
+                    </div>
+                )}
+
+
                 {/* Leads Tab */}
                 {activeTab === 'leads' && (<>
                     {/* Stats Cards */}
@@ -560,7 +613,7 @@ function AdminDashboard() {
                             marginBottom: '32px',
                         }}>
                             {[
-                                { label: 'Total Leads', value: stats.stats.total, icon: '📋', gradient: 'linear-gradient(135deg, #4f46e5, #7c3aed)' },
+                                { label: 'Total Leads', value: stats.stats.total, icon: '📋', gradient: 'linear-gradient(to right, #1E3A8A, #20282D)' },
                                 { label: 'New Leads', value: stats.stats.new, icon: '🆕', gradient: 'linear-gradient(135deg, #0ea5e9, #06b6d4)' },
                                 { label: 'Contacted', value: stats.stats.contacted, icon: '📞', gradient: 'linear-gradient(135deg, #f59e0b, #f97316)' },
                                 { label: 'Converted', value: stats.stats.converted, icon: '✅', gradient: 'linear-gradient(135deg, #10b981, #14b8a6)' },
@@ -580,7 +633,7 @@ function AdminDashboard() {
                                     }} />
                                     <div style={{ fontSize: '1.5rem', marginBottom: '8px' }}>{stat.icon}</div>
                                     <div style={{
-                                        fontFamily: 'var(--font-serif)', fontSize: '2rem', fontWeight: '800',
+                                        fontFamily: 'var(--font-heading)', fontSize: '2rem', fontWeight: '800',
                                         color: 'var(--gray-900)', lineHeight: 1,
                                     }}>
                                         {stat.value}
@@ -616,7 +669,7 @@ function AdminDashboard() {
                                     borderRadius: '12px', fontSize: '0.9rem', fontFamily: 'var(--font-sans)',
                                     outline: 'none', transition: '0.3s ease',
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = '#818cf8'}
+                                onFocus={(e) => e.target.style.borderColor = '#1E3A8A'}
                                 onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
                                 id="admin-search"
                             />
@@ -799,7 +852,7 @@ function AdminDashboard() {
                                 }}>
                                     <div>
                                         <h2 style={{
-                                            fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: '700',
+                                            fontFamily: 'var(--font-heading)', fontSize: '1.5rem', fontWeight: '700',
                                             color: 'var(--gray-900)', marginBottom: '4px',
                                         }}>
                                             {selectedLead.name}

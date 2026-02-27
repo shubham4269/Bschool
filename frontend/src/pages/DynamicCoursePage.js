@@ -63,7 +63,7 @@ function DynamicCoursePage({ type }) {
                         width: '48px',
                         height: '48px',
                         border: '4px solid #e2e8f0',
-                        borderTopColor: '#6366f1',
+                        borderTopColor: '#1E3A8A',
                         borderRadius: '50%',
                         animation: 'spin 0.8s linear infinite',
                         margin: '0 auto 16px',
@@ -87,7 +87,7 @@ function DynamicCoursePage({ type }) {
                 <div style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '4rem', marginBottom: '16px' }}>📭</div>
                     <h2 style={{
-                        fontFamily: 'var(--font-serif)',
+                        fontFamily: 'var(--font-heading)',
                         fontSize: '1.5rem',
                         color: 'var(--gray-800)',
                         marginBottom: '8px',

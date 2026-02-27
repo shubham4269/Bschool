@@ -71,7 +71,7 @@ function AdminContentManager({ type, onLogout }) {
 
     const handleImageUpload = async (file, type) => {
         if (!file) return;
-        
+
         const setUploading = type === 'card' ? setUploadingCard : setUploadingHero;
         setUploading(true);
         setMessage('');
@@ -183,11 +183,11 @@ function AdminContentManager({ type, onLogout }) {
         arr[index] = { ...arr[index], [key]: value };
         setEditing({ ...editing, [field]: arr });
     };
-    
+
     // Default icons for highlights and sidebar
     const defaultHighlightIcons = ['🎯', '💼', '🌍', '🏢', '📚', '💡', '🎓', '⭐'];
     const defaultSidebarIcons = ['⏱️', '📋', '📍', '💰', '📊', '🎯'];
-    
+
     const addObjItem = (field, template) => {
         if (field === 'highlights') {
             const iconIndex = editing[field].length % defaultHighlightIcons.length;
@@ -198,7 +198,7 @@ function AdminContentManager({ type, onLogout }) {
         }
         setEditing({ ...editing, [field]: [...editing[field], { ...template }] });
     };
-    
+
     const removeObjItem = (field, index) => {
         const arr = editing[field].filter((_, i) => i !== index);
         if (arr.length === 0) {
@@ -213,7 +213,7 @@ function AdminContentManager({ type, onLogout }) {
         return (
             <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
+                    <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
                         {editing._id ? `Edit ${singular}` : `New ${singular}`}
                     </h2>
                     <button onClick={() => setEditing(null)} style={btnStyle('#f1f5f9', '#64748b')}>← Back to List</button>
@@ -286,7 +286,7 @@ function AdminContentManager({ type, onLogout }) {
                                     disabled={uploadingCard}
                                     style={{ ...inputStyle, padding: '8px' }}
                                 />
-                                {uploadingCard && <div style={{ fontSize: '0.85rem', color: '#6366f1' }}>⏳ Uploading...</div>}
+                                {uploadingCard && <div style={{ fontSize: '0.85rem', color: '#1E3A8A' }}>⏳ Uploading...</div>}
                                 {editing.cardBackgroundImage && (
                                     <div style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden', border: '2px solid #e2e8f0' }}>
                                         <img src={editing.cardBackgroundImage} alt="Card preview" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
@@ -312,7 +312,7 @@ function AdminContentManager({ type, onLogout }) {
                                     disabled={uploadingHero}
                                     style={{ ...inputStyle, padding: '8px' }}
                                 />
-                                {uploadingHero && <div style={{ fontSize: '0.85rem', color: '#6366f1' }}>⏳ Uploading...</div>}
+                                {uploadingHero && <div style={{ fontSize: '0.85rem', color: '#1E3A8A' }}>⏳ Uploading...</div>}
                                 {editing.heroBackgroundImage && (
                                     <div style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden', border: '2px solid #e2e8f0' }}>
                                         <img src={editing.heroBackgroundImage} alt="Hero preview" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
@@ -383,7 +383,7 @@ function AdminContentManager({ type, onLogout }) {
                     {/* Save */}
                     <div style={{ display: 'flex', gap: '12px', paddingTop: '20px', borderTop: '1px solid #e2e8f0' }}>
                         <button onClick={handleSave} disabled={saving || !editing.slug || !editing.title}
-                            style={{ ...btnStyle('linear-gradient(135deg, #4f46e5, #7c3aed)', 'white'), padding: '12px 32px', opacity: saving ? 0.6 : 1 }}>
+                            style={{ ...btnStyle('linear-gradient(to right, #1E3A8A, #20282D)', 'white'), padding: '12px 32px', opacity: saving ? 0.6 : 1 }}>
                             {saving ? '⏳ Saving...' : '💾 Save'}
                         </button>
                         <button onClick={() => setEditing(null)} style={btnStyle('#f1f5f9', '#64748b')}>Cancel</button>
@@ -397,11 +397,11 @@ function AdminContentManager({ type, onLogout }) {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
+                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
                     {type === 'services' ? '🎓 Services' : '📚 Specializations'} ({items.length})
                 </h2>
                 <button onClick={() => setEditing({ ...EMPTY_ITEM })}
-                    style={{ ...btnStyle('linear-gradient(135deg, #4f46e5, #7c3aed)', 'white'), padding: '10px 24px' }}>
+                    style={{ ...btnStyle('linear-gradient(to right, #1E3A8A, #20282D)', 'white'), padding: '10px 24px' }}>
                     + Add {singular}
                 </button>
             </div>
@@ -441,7 +441,7 @@ function AdminContentManager({ type, onLogout }) {
                                     <td style={{ padding: '12px 16px', fontWeight: '600', color: 'var(--gray-800)' }}>{item.title}</td>
                                     <td style={{ padding: '12px 16px', color: 'var(--gray-500)', fontFamily: 'monospace', fontSize: '0.82rem' }}>/{endpoint === 'services' ? 'service' : 'specialization'}/{item.slug}</td>
                                     <td style={{ padding: '12px 16px' }}>
-                                        {item.badge && <span style={{ padding: '3px 10px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: '600', background: '#eef2ff', color: '#4f46e5' }}>{item.badge}</span>}
+                                        {item.badge && <span style={{ padding: '3px 10px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: '600', background: '#eff6ff', color: '#1E3A8A' }}>{item.badge}</span>}
                                     </td>
                                     <td style={{ padding: '12px 16px' }}>
                                         <button onClick={() => toggleActive(item)} style={{
@@ -453,19 +453,19 @@ function AdminContentManager({ type, onLogout }) {
                                     </td>
                                     <td style={{ padding: '12px 16px' }}>
                                         <div style={{ display: 'flex', gap: '6px' }}>
-                                            <button onClick={() => setEditing({ 
-                                                ...EMPTY_ITEM, 
-                                                ...item, 
-                                                overview: item.overview?.length ? item.overview : [''], 
-                                                eligibility: item.eligibility?.length ? item.eligibility : [''], 
-                                                curriculum: item.curriculum?.length ? item.curriculum : [''], 
-                                                whyChoose: item.whyChoose?.length ? item.whyChoose : [''], 
-                                                highlights: item.highlights?.length ? item.highlights : [{ icon: '', title: '', text: '' }], 
+                                            <button onClick={() => setEditing({
+                                                ...EMPTY_ITEM,
+                                                ...item,
+                                                overview: item.overview?.length ? item.overview : [''],
+                                                eligibility: item.eligibility?.length ? item.eligibility : [''],
+                                                curriculum: item.curriculum?.length ? item.curriculum : [''],
+                                                whyChoose: item.whyChoose?.length ? item.whyChoose : [''],
+                                                highlights: item.highlights?.length ? item.highlights : [{ icon: '', title: '', text: '' }],
                                                 sidebarInfo: item.sidebarInfo?.length ? item.sidebarInfo : [{ icon: '', label: '', value: '' }],
                                                 cardBackgroundImage: item.cardBackgroundImage || '',
                                                 heroBackgroundImage: item.heroBackgroundImage || ''
                                             })}
-                                                style={btnStyle('#eef2ff', '#4f46e5')}>✏️ Edit</button>
+                                                style={btnStyle('#eff6ff', '#1E3A8A')}>✏️ Edit</button>
                                             <button onClick={() => handleDelete(item._id, item.title)} style={btnStyle('#fef2f2', '#ef4444')}>🗑️</button>
                                         </div>
                                     </td>

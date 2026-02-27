@@ -1,0 +1,290 @@
+.admin-blogs-page {
+  padding: 30px;
+}
+
+.back-to-dashboard {
+  margin-bottom: 20px;
+}
+
+.back-dashboard-btn {
+  background: #e2e8f0;
+  color: #4a5568;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-dashboard-btn:hover {
+  background: #cbd5e0;
+  transform: translateX(-2px);
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  color: #2d3748;
+}
+
+.create-btn {
+  background: #667eea;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.create-btn:hover {
+  background: #5568d3;
+}
+
+/* Table */
+.blogs-table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+.blogs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.blogs-table thead {
+  background: #f7fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.blogs-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.blogs-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #2d3748;
+}
+
+.blogs-table tbody tr:hover {
+  background: #f7fafc;
+}
+
+.title-cell {
+  font-weight: 600;
+  max-width: 300px;
+}
+
+.slug-cell {
+  color: #718096;
+  font-size: 0.9rem;
+  font-family: monospace;
+}
+
+.category-badge {
+  display: inline-block;
+  background: #edf2f7;
+  color: #667eea;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.toggle-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+}
+
+.toggle-btn.active {
+  background: #ffd700;
+  color: #2d3748;
+}
+
+.toggle-btn:not(.active) {
+  background: #e2e8f0;
+  color: #718096;
+}
+
+.toggle-btn.published {
+  background: #48bb78;
+  color: white;
+}
+
+.toggle-btn.draft {
+  background: #e2e8f0;
+  color: #718096;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.action-btn.edit {
+  background: #667eea;
+  color: white;
+}
+
+.action-btn.edit:hover {
+  background: #5568d3;
+}
+
+.action-btn.preview {
+  background: #48bb78;
+  color: white;
+}
+
+.action-btn.preview:hover {
+  background: #38a169;
+}
+
+.action-btn.delete {
+  background: #f56565;
+  color: white;
+}
+
+.action-btn.delete:hover {
+  background: #e53e3e;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #718096;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #2d3748;
+}
+
+.modal-content p {
+  color: #4a5568;
+  margin-bottom: 25px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.cancel-btn {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.cancel-btn:hover {
+  background: #cbd5e0;
+}
+
+.confirm-btn {
+  background: #f56565;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #e53e3e;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #718096;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .blogs-table {
+    font-size: 0.85rem;
+  }
+
+  .blogs-table th,
+  .blogs-table td {
+    padding: 10px;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+  }
+}

@@ -4,6 +4,7 @@ import { useApplyModal } from '../context/ApplyModalContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import CountUp from '../components/CountUp';
 import HeroSlider from '../components/HeroSlider';
+import CollegeLogoStrip from '../components/CollegeLogoStrip';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -151,6 +152,9 @@ function Home() {
                 </div>
             </section>
 
+            {/* ===== COLLEGE LOGO STRIP ===== */}
+            <CollegeLogoStrip />
+
             {/* ===== SERVICES SECTION ===== */}
             <section className="section" id="home-services" style={{ background: 'white' }}>
                 <div className="container">
@@ -172,10 +176,10 @@ function Home() {
                                 data-delay={i * 100}
                                 id={`service-card-${service.slug}`}
                             >
-                                <div className="course-card-image" style={{ 
-                                    background: service.cardBackgroundImage 
-                                        ? `url(${service.cardBackgroundImage})` 
-                                        : 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                                <div className="course-card-image" style={{
+                                    background: service.cardBackgroundImage
+                                        ? `url(${service.cardBackgroundImage})`
+                                        : 'linear-gradient(to right, #1E3A8A, #20282D)',
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                     backgroundRepeat: 'no-repeat',
@@ -228,10 +232,10 @@ function Home() {
                                 data-delay={i * 100}
                                 id={`spec-card-${spec.slug}`}
                             >
-                                <div className="course-card-image" style={{ 
-                                    background: spec.cardBackgroundImage 
-                                        ? `url(${spec.cardBackgroundImage})` 
-                                        : 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                                <div className="course-card-image" style={{
+                                    background: spec.cardBackgroundImage
+                                        ? `url(${spec.cardBackgroundImage})`
+                                        : 'linear-gradient(to right, #1E3A8A, #20282D)',
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                     backgroundRepeat: 'no-repeat',

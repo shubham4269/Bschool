@@ -13,6 +13,12 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Disclaimer from './pages/Disclaimer';
 import TermsAndConditions from './pages/TermsAndConditions';
 import AdminDashboard from './pages/AdminDashboard';
+import TheBlog from './pages/TheBlog';
+import BlogDetail from './pages/BlogDetail';
+import AdminBlogs from './pages/AdminBlogs';
+import AdminBlogForm from './pages/AdminBlogForm';
+import AcademicPartners from './pages/AcademicPartners';
+import AdminPartners from './pages/AdminPartners';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -24,7 +30,7 @@ function ScrollToTop() {
 
 function AppContent() {
   const { pathname } = useLocation();
-  const isAdmin = pathname === '/admin';
+  const isAdmin = pathname.startsWith('/admin');
 
   return (
     <>
@@ -36,6 +42,10 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/academic-partners" element={<AcademicPartners />} />
+          {/* Blog routes */}
+          <Route path="/the-latest" element={<TheBlog />} />
+          <Route path="/the-latest/:slug" element={<BlogDetail />} />
           {/* Dynamic service and specialization pages */}
           <Route path="/service/:slug" element={<DynamicCoursePage type="service" />} />
           <Route path="/specialization/:slug" element={<DynamicCoursePage type="specialization" />} />
@@ -57,7 +67,12 @@ function AppContent() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          {/* Admin routes */}
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/blogs" element={<AdminBlogs />} />
+          <Route path="/admin/blogs/create" element={<AdminBlogForm />} />
+          <Route path="/admin/blogs/edit/:id" element={<AdminBlogForm />} />
+          <Route path="/admin/partners" element={<AdminPartners />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

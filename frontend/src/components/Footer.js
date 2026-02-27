@@ -31,10 +31,12 @@ function Footer() {
             <div className="footer-grid">
                 <div className="footer-brand">
                     <Link to="/" className="navbar-logo">
-                        <div className="navbar-logo-icon">B</div>
-                        <div className="navbar-logo-text">
-                            Bschool<span>Bridge</span>
-                        </div>
+                        <img
+                            src="/logo.png"
+                            alt="BschoolBridge Logo"
+                            className="navbar-logo-img"
+                            style={{ height: '80px', width: 'auto', objectFit: 'contain' }}
+                        />
                     </Link>
                     <p className="footer-brand-text">
                         Your trusted partner for MBA & PGDM admissions across India. We connect aspiring leaders with top business schools to build their future.
