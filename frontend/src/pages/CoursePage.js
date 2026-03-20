@@ -165,7 +165,8 @@ function CoursePage({ config }) {
                                         fontWeight: '700', color: 'var(--primary-600)',
                                         fontSize: '1.1rem',
                                     }}>
-                                        +91 98765 43210
+                                       +917903415288
++917670848963
                                     </a>
                                 </div>
                             </div>

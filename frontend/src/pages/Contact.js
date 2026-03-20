@@ -63,8 +63,8 @@ function Contact() {
                 <div className="container">
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
                         {[
-                            { icon: '📍', title: 'Visit Us', text: 'Connaught Place, New Delhi, India - 110001' },
-                            { icon: '📞', title: 'Call Us', text: '+91 98765 43210\n+91 11 4567 8900' },
+                            { icon: '📍', title: 'Visit Us', text: 'Bilashpur House, Dadijee Lane, Boring Rd, Patna, Bihar 800001 - 110001' },
+                            { icon: '📞', title: 'Call Us', text: '+91 7903415288\n+91 7670848963' },
                             { icon: '✉️', title: 'Email Us', text: 'info@bschoolbridge.in\nadmissions@bschoolbridge.in' },
                             { icon: '🕐', title: 'Office Hours', text: 'Mon - Sat: 9:00 AM - 7:00 PM\nSunday: Closed' },
                         ].map((info, i) => (

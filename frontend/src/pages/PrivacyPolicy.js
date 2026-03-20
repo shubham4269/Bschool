@@ -144,8 +144,9 @@ function PrivacyPolicy() {
                         <p>If you have any questions or concerns about this Privacy Policy, please contact us:</p>
                         <ul>
                             <li><strong>Email:</strong> privacy@bschoolbridge.in</li>
-                            <li><strong>Phone:</strong> +91 98765 43210</li>
-                            <li><strong>Address:</strong> Bschool Bridge, New Delhi, India</li>
+                            <li><strong>Phone:</strong>+917903415288
++917670848963</li>
+                            <li><strong>Address:</strong> Bschool Bridge,Bilashpur House, Dadijee Lane, Boring Rd, Patna, Bihar 800001</li>
                         </ul>
                     </div>
                 </div>

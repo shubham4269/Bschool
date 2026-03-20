@@ -141,8 +141,9 @@ function Disclaimer() {
                         <p>If you have any questions about this disclaimer, please contact us:</p>
                         <ul>
                             <li><strong>Email:</strong> legal@bschoolbridge.in</li>
-                            <li><strong>Phone:</strong> +91 98765 43210</li>
-                            <li><strong>Address:</strong> Bschool Bridge, New Delhi, India</li>
+                            <li><strong>Phone:</strong>+917903415288
++917670848963</li>
+                            <li><strong>Address:</strong> Bschool Bridge,Bilashpur House, Dadijee Lane, Boring Rd, Patna, Bihar 800001</li>
                         </ul>
                     </div>
                 </div>

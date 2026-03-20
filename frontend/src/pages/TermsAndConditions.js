@@ -179,7 +179,7 @@ function TermsAndConditions() {
                     <div className="legal-section">
                         <h2>12. Governing Law & Jurisdiction</h2>
                         <p>
-                            These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts located in New Delhi, India.
+                            These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts located inBilashpur House, Dadijee Lane, Boring Rd, Patna, Bihar 800001.
                         </p>
                     </div>
 
@@ -202,8 +202,9 @@ function TermsAndConditions() {
                         <p>For any questions or concerns regarding these Terms and Conditions, please contact us:</p>
                         <ul>
                             <li><strong>Email:</strong> legal@bschoolbridge.in</li>
-                            <li><strong>Phone:</strong> +91 98765 43210</li>
-                            <li><strong>Address:</strong> Bschool Bridge, New Delhi, India</li>
+                            <li><strong>Phone:</strong>+917903415288
++917670848963</li>
+                            <li><strong>Address:</strong> Bschool Bridge,Bilashpur House, Dadijee Lane, Boring Rd, Patna, Bihar 800001</li>
                         </ul>
                     </div>
                 </div>
