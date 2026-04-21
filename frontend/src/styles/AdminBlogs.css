@@ -122,8 +122,8 @@
 }
 
 .toggle-btn.active {
-  background: #ffd700;
-  color: #2d3748;
+  background: #3b82f6;
+  color: white;
 }
 
 .toggle-btn:not(.active) {

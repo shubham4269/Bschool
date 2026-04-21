@@ -19,9 +19,8 @@ function About() {
             <section className="section" id="about-mission" style={{ background: 'white' }}>
                 <div className="container">
                     <div className="about-content-section">
-                        <div className="about-image-box" data-animate="fade-right">
-                            <div className="about-image-icon">🎯</div>
-                            <div className="about-image-text">Our Mission</div>
+                        <div className="about-image-container" data-animate="fade-right">
+                            <img src="/about.webp" alt="About Bschool Bridge" className="about-image" />
                         </div>
                         <div className="about-text" data-animate="fade-left" data-delay="200">
                             <div className="section-label">Who We Are</div>
@@ -84,9 +83,8 @@ function About() {
             <section className="section" id="about-process" style={{ background: 'white' }}>
                 <div className="container">
                     <div className="about-content-section reverse">
-                        <div className="about-image-box" style={{ background: 'linear-gradient(135deg, #0ea5e9, #06b6d4)' }} data-animate="fade-left">
-                            <div className="about-image-icon">📈</div>
-                            <div className="about-image-text">Our Process</div>
+                        <div className="about-image-container" data-animate="fade-left">
+                            <img src="/process.webp" alt="Our Process" className="about-image" />
                         </div>
                         <div className="about-text" data-animate="fade-right" data-delay="200">
                             <div className="section-label">How We Work</div>

@@ -1,1 +1,20 @@
 /* App-level styles - kept minimal since index.css has the design system */
+
+/* Mobile alignment fixes */
+@media (max-width: 768px) {
+  .App {
+    text-align: center;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure all content is centered on mobile */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Remove any potential right-alignment causes */
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}

@@ -10,6 +10,8 @@ function ApplyModal() {
         email: '',
         phone: '',
         course: '',
+        entranceExam: '',
+        percentile: '',
         message: '',
     });
     const [submitted, setSubmitted] = useState(false);
@@ -44,13 +46,36 @@ function ApplyModal() {
             closeModal();
             setSubmitted(false);
             setError('');
-            setFormData({ name: '', email: '', phone: '', course: '', message: '' });
+            setFormData({ 
+                name: '', 
+                email: '', 
+                phone: '', 
+                course: '', 
+                entranceExam: '', 
+                percentile: '', 
+                message: '' 
+            });
         }, 250);
     };
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        
+        // If entrance exam is being changed, reset percentile if exam is cleared
+        if (name === 'entranceExam' && value === '') {
+            setFormData({ ...formData, [name]: value, percentile: '' });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
         setError('');
+    };
+
+    const handlePercentileChange = (e) => {
+        const value = e.target.value;
+        // Allow only numbers and decimal point, and limit to 0-100 range
+        if (value === '' || (/^\d*\.?\d*$/.test(value) && parseFloat(value) <= 100)) {
+            setFormData({ ...formData, percentile: value });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -69,7 +94,15 @@ function ApplyModal() {
 
             if (data.success) {
                 setSubmitted(true);
-                setFormData({ name: '', email: '', phone: '', course: '', message: '' });
+                setFormData({ 
+                    name: '', 
+                    email: '', 
+                    phone: '', 
+                    course: '', 
+                    entranceExam: '', 
+                    percentile: '', 
+                    message: '' 
+                });
             } else {
                 setError(data.message || 'Something went wrong. Please try again.');
             }
@@ -207,6 +240,48 @@ function ApplyModal() {
                                         </optgroup>
                                     </select>
                                 </div>
+                            </div>
+
+                            {/* New Entrance Exam and Percentile Fields */}
+                            <div className="apply-modal-row">
+                                <div className="apply-modal-field">
+                                    <label htmlFor="apply-entrance-exam">Entrance Exam <span style={{ fontWeight: 400, color: 'var(--gray-400)' }}>(optional)</span></label>
+                                    <select
+                                        id="apply-entrance-exam"
+                                        name="entranceExam"
+                                        value={formData.entranceExam}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Select an exam</option>
+                                        <option value="CAT">CAT</option>
+                                        <option value="XAT">XAT</option>
+                                        <option value="CMAT">CMAT</option>
+                                        <option value="GMAT">GMAT</option>
+                                        <option value="MAT">MAT</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                {formData.entranceExam && (
+                                    <div 
+                                        className="apply-modal-field"
+                                        style={{
+                                            animation: 'fadeSlideIn 0.3s ease-out',
+                                            transformOrigin: 'top'
+                                        }}
+                                    >
+                                        <label htmlFor="apply-percentile">
+                                            {formData.entranceExam} Percentile <span style={{ fontWeight: 400, color: 'var(--gray-400)' }}>(optional)</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="apply-percentile"
+                                            name="percentile"
+                                            placeholder="Enter percentile (0-100)"
+                                            value={formData.percentile}
+                                            onChange={handlePercentileChange}
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="apply-modal-field">

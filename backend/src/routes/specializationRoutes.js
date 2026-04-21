@@ -46,6 +46,15 @@ router.get('/admin/all', authMiddleware, async (req, res) => {
 // POST /api/specializations — Create new specialization (admin)
 router.post('/', authMiddleware, async (req, res) => {
     try {
+        // Check if the limit of 7 specializations has been reached
+        const specializationCount = await Specialization.countDocuments();
+        if (specializationCount >= 7) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Maximum limit of 7 specializations reached. Please delete an existing specialization before adding a new one.' 
+            });
+        }
+
         const specialization = new Specialization(req.body);
         await specialization.save();
         console.log(`✅ Specialization created: ${specialization.title}`);

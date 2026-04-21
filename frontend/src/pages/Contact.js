@@ -11,6 +11,8 @@ function Contact() {
         email: '',
         phone: '',
         course: '',
+        entranceExam: '',
+        percentile: '',
         message: '',
     });
     const [submitted, setSubmitted] = useState(false);
@@ -18,8 +20,23 @@ function Contact() {
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        
+        // If entrance exam is being changed, reset percentile if exam is cleared
+        if (name === 'entranceExam' && value === '') {
+            setFormData({ ...formData, [name]: value, percentile: '' });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
         setError('');
+    };
+
+    const handlePercentileChange = (e) => {
+        const value = e.target.value;
+        // Allow only numbers and decimal point, and limit to 0-100 range
+        if (value === '' || (/^\d*\.?\d*$/.test(value) && parseFloat(value) <= 100)) {
+            setFormData({ ...formData, percentile: value });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -38,7 +55,15 @@ function Contact() {
 
             if (data.success) {
                 setSubmitted(true);
-                setFormData({ name: '', email: '', phone: '', course: '', message: '' });
+                setFormData({ 
+                    name: '', 
+                    email: '', 
+                    phone: '', 
+                    course: '', 
+                    entranceExam: '', 
+                    percentile: '', 
+                    message: '' 
+                });
                 setTimeout(() => setSubmitted(false), 5000);
             } else {
                 setError(data.message || 'Something went wrong. Please try again.');
@@ -85,7 +110,7 @@ function Contact() {
                 <div className="container">
                     <div className="contact-grid">
                         <div data-animate="fade-right">
-                            <div className="section-label">Get In Touch</div>
+                            
                             <h2 className="section-title title-reveal" style={{ marginBottom: '20px' }}>Send Us a Message</h2>
                             <p className="section-subtitle" style={{ marginBottom: '32px' }}>
                                 Fill out the form below and our admission counselors will get back to you within 24 hours with personalized guidance.
@@ -191,6 +216,53 @@ function Contact() {
                                     </div>
                                 </div>
 
+                                {/* New Entrance Exam and Percentile Fields */}
+                                <div className="form-row">
+                                    <div className="form-group">
+                                        <label className="form-label" htmlFor="contact-entrance-exam">Entrance Exam (Optional)</label>
+                                        <select
+                                            className="form-select"
+                                            id="contact-entrance-exam"
+                                            name="entranceExam"
+                                            value={formData.entranceExam}
+                                            onChange={handleChange}
+                                        >
+                                            <option value="">Select an exam</option>
+                                            <option value="CAT">CAT</option>
+                                            <option value="XAT">XAT</option>
+                                            <option value="CMAT">CMAT</option>
+                                            <option value="GMAT">GMAT</option>
+                                            <option value="MAT">MAT</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    {formData.entranceExam && (
+                                        <div 
+                                            className="form-group"
+                                            style={{
+                                                animation: 'fadeSlideIn 0.3s ease-out',
+                                                transformOrigin: 'top'
+                                            }}
+                                        >
+                                            <label className="form-label" htmlFor="contact-percentile">
+                                                {formData.entranceExam} Percentile (Optional)
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-input"
+                                                id="contact-percentile"
+                                                name="percentile"
+                                                placeholder="Enter percentile (0-100)"
+                                                value={formData.percentile}
+                                                onChange={handlePercentileChange}
+                                                min="0"
+                                                max="100"
+                                                step="0.01"
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+
                                 <div className="form-group">
                                     <label className="form-label" htmlFor="contact-message">Your Message</label>
                                     <textarea
@@ -212,7 +284,7 @@ function Contact() {
 
                         <div data-animate="fade-left" data-delay="200">
                             <div style={{
-                                background: 'var(--gradient-hero)',
+                                background: '#000000',
                                 borderRadius: 'var(--radius-xl)',
                                 padding: '48px 36px',
                                 color: 'white',
@@ -221,6 +293,7 @@ function Contact() {
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 gap: '32px',
+                                border: '1px solid rgba(255, 255, 255, 0.1)',
                             }}>
                                 <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', fontWeight: '700', color: 'white' }}>
                                     Why Students Choose Bschool Bridge

@@ -106,10 +106,18 @@ function AdminContentManager({ type, onLogout }) {
 
     const handleSave = async () => {
         if (!editing) return;
+        
+        // Check limits for new items
+        const isNew = !editing._id;
+        const maxItems = type === 'services' ? 6 : 7;
+        if (isNew && items.length >= maxItems) {
+            setMessage(`❌ Maximum limit of ${maxItems} ${type} reached. Please delete an existing ${singular.toLowerCase()} before adding a new one.`);
+            return;
+        }
+
         setSaving(true);
         setMessage('');
         try {
-            const isNew = !editing._id;
             const url = isNew ? `${API_URL}/api/${endpoint}` : `${API_URL}/api/${endpoint}/${editing._id}`;
             const method = isNew ? 'POST' : 'PUT';
 
@@ -394,14 +402,31 @@ function AdminContentManager({ type, onLogout }) {
     }
 
     // ===== LIST VIEW =====
+    const maxItems = type === 'services' ? 6 : 7;
+    const isAtLimit = items.length >= maxItems;
+
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
-                    {type === 'services' ? '🎓 Services' : '📚 Specializations'} ({items.length})
-                </h2>
-                <button onClick={() => setEditing({ ...EMPTY_ITEM })}
-                    style={{ ...btnStyle('linear-gradient(to right, #1E3A8A, #20282D)', 'white'), padding: '10px 24px' }}>
+                <div>
+                    <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: '700', color: 'var(--gray-900)' }}>
+                        {type === 'services' ? '🎓 Services' : '📚 Specializations'} ({items.length}/{maxItems})
+                    </h2>
+                </div>
+                <button 
+                    onClick={() => setEditing({ ...EMPTY_ITEM })}
+                    disabled={isAtLimit}
+                    title={isAtLimit ? `⚠️ Maximum limit reached. Delete an existing ${singular.toLowerCase()} to add a new one.` : `Add a new ${singular.toLowerCase()}`}
+                    style={{ 
+                        ...btnStyle(
+                            isAtLimit ? '#e2e8f0' : 'linear-gradient(to right, #1E3A8A, #20282D)', 
+                            isAtLimit ? '#94a3b8' : 'white'
+                        ), 
+                        padding: '10px 24px',
+                        cursor: isAtLimit ? 'not-allowed' : 'pointer',
+                        opacity: isAtLimit ? 0.6 : 1
+                    }}
+                >
                     + Add {singular}
                 </button>
             </div>

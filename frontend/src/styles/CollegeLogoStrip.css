@@ -1,32 +1,37 @@
 .college-logo-strip {
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  padding: 60px 0;
+  background: white;
+  width: 100%;
   overflow: hidden;
 }
 
 .strip-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  padding: 0 20px;
 }
 
 .strip-header h2 {
   font-size: 2rem;
   font-weight: 800;
-  color: #1a202c;
+  color: var(--gray-900);
   margin-bottom: 10px;
   font-family: var(--font-heading);
 }
 
 .strip-header p {
   font-size: 1.1rem;
-  color: #718096;
+  color: var(--gray-600);
 }
 
+/* Horizontal Scrolling Container */
 .logo-scroll-container {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 0;
 }
 
 .logo-scroll-container::before,
@@ -42,19 +47,22 @@
 
 .logo-scroll-container::before {
   left: 0;
-  background: linear-gradient(to right, #f7fafc, transparent);
+  background: linear-gradient(to right, white, transparent);
 }
 
 .logo-scroll-container::after {
   right: 0;
-  background: linear-gradient(to left, #edf2f7, transparent);
+  background: linear-gradient(to left, white, transparent);
 }
 
 .logo-scroll-track {
   display: flex;
-  gap: 60px;
+  gap: 0 !important;
   animation: scroll 40s linear infinite;
   width: fit-content;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0;
 }
 
 .logo-scroll-track:hover {
@@ -72,67 +80,184 @@
 
 .logo-item {
   flex-shrink: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   background: white;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 15px 18px !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   transition: all 0.3s;
-  min-width: 180px;
-  height: 80px;
+  min-width: 110px !important;
+  height: 60px !important;
+  border: none !important;
+  border-right: 1px solid var(--gray-100) !important;
+  margin: 0 !important;
+  line-height: 0;
+  vertical-align: top;
 }
 
 .logo-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transform: none !important;
+  box-shadow: none !important;
+  background: var(--gray-50);
 }
 
 .logo-item img {
-  max-width: 150px;
+  max-width: 95px !important;
+  max-height: 40px !important;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: none !important;
+  opacity: 1;
+  transition: all 0.3s;
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: top;
+}
+
+.logo-item:hover img {
+  filter: none !important;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Legacy grid styles - keep for backward compatibility */
+/* Grid layout for regular section (not hero) */
+.logo-grid-container {
+  width: 100%;
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo-grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 20px 15px;
+  transition: all 0.3s ease;
+  min-height: 80px;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  border-right: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.logo-grid-item:hover {
+  transform: scale(1.05);
+  background: var(--gray-50);
+}
+
+.logo-grid-item img {
+  max-width: 140px;
   max-height: 60px;
   width: auto;
   height: auto;
   object-fit: contain;
   filter: grayscale(0%);
-  opacity: 1;
-  transition: all 0.3s;
+  opacity: 0.8;
+  transition: all 0.3s ease;
 }
 
-.logo-item:hover img {
-  filter: grayscale(0%);
+.logo-grid-item:hover img {
   opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .college-logo-strip {
-    padding: 40px 15px;
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  .strip-header {
+    text-align: center;
+    margin: 0 auto;
   }
 
   .strip-header h2 {
     font-size: 1.5rem;
+    text-align: center;
   }
 
   .strip-header p {
     font-size: 0.95rem;
+    text-align: center;
+  }
+
+  /* Hero strip mobile styles */
+  .logo-scroll-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
   .logo-scroll-track {
-    gap: 30px;
+    gap: 0 !important;
     animation-duration: 30s;
+    justify-content: center;
   }
 
   .logo-item {
-    min-width: 140px;
-    height: 70px;
-    padding: 15px 20px;
+    min-width: 100px !important;
+    height: 55px !important;
+    padding: 12px 20px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .logo-item img {
-    max-width: 120px;
-    max-height: 50px;
+    max-width: 85px !important;
+    max-height: 35px !important;
+    margin: 0 auto;
+  }
+
+  /* Grid layout mobile styles */
+  .logo-grid-container {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0;
+    justify-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo-grid-item {
+    padding: 15px 10px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-grid-item img {
+    max-width: 100px;
+    max-height: 45px;
+    margin: 0 auto;
   }
 }
+

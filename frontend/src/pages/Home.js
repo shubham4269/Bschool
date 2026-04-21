@@ -27,6 +27,12 @@ const testimonials = [
         role: 'ISB Hyderabad, Batch 2024',
         initials: 'AD',
     },
+    {
+        text: '"From profile building to interview preparation, Bschool Bridge provided comprehensive support. I got admission to FMS Delhi with their strategic guidance!"',
+        name: 'Vikash Kumar',
+        role: 'FMS Delhi, Batch 2025',
+        initials: 'VK',
+    },
 ];
 
 function Home() {
@@ -63,73 +69,58 @@ function Home() {
             {/* ===== HERO SECTION ===== */}
             <section className="hero" id="home-hero" style={{ position: 'relative' }}>
                 <HeroSlider images={heroImages} />
-                <div className="hero-content" style={{ pointerEvents: 'none' }}>
-                    <div className="hero-text-side" style={{ pointerEvents: 'auto' }}>
+                <div className="hero-content">
+                    <div className="hero-text-side">
                         <div className="hero-badge fade-in">
                             <span className="hero-badge-dot"></span>
-                            Admissions Open 2026-27
+                            Trusted by 15,000+ Students
                         </div>
                         <h1 className="hero-title fade-in fade-in-delay-1">
                             Your Gateway to <span className="highlight">Top Business Schools</span> in India
                         </h1>
                         <p className="hero-description fade-in fade-in-delay-2">
-                            Expert guidance for MBA, PGDM & Executive programs. We've helped 15,000+ students get admitted to leading B-schools including IIMs, XLRI, ISB & more.
+                            Expert guidance for MBA, PGDM & Executive programs. We've helped thousands of students get admitted to leading B-schools including IIMs, XLRI, ISB & more.
                         </p>
                         <div className="hero-buttons fade-in fade-in-delay-3">
-                            <button onClick={() => openModal()} className="btn btn-accent btn-lg btn-glow" id="hero-apply-btn">
+                            <button onClick={() => openModal()} className="btn btn-primary btn-lg" id="hero-apply-btn">
                                 Apply Now →
                             </button>
-                            <Link to="/about" className="btn btn-outline-white btn-lg" id="hero-learn-btn">
+                            <Link to="/about" className="btn btn-secondary btn-lg" id="hero-learn-btn">
                                 Learn More
                             </Link>
                         </div>
-                        <div className="hero-stats fade-in fade-in-delay-4">
-                            <div>
-                                <div className="hero-stat-value">
-                                    <CountUp end={15} suffix="" /><span>K+</span>
-                                </div>
-                                <div className="hero-stat-label">Students Placed</div>
-                            </div>
-                            <div>
-                                <div className="hero-stat-value">
-                                    <CountUp end={200} /><span>+</span>
-                                </div>
-                                <div className="hero-stat-label">Partner Colleges</div>
-                            </div>
-                            <div>
-                                <div className="hero-stat-value">
-                                    <CountUp end={98} /><span>%</span>
-                                </div>
-                                <div className="hero-stat-label">Success Rate</div>
-                            </div>
+                    </div>
+                </div>
+                
+                {/* Full-Width Premium Trust Bar */}
+                <div className="hero-features-wrapper fade-in fade-in-delay-4">
+                    <div className="hero-features">
+                        <div className="hero-feature-item">
+                            <span className="hero-feature-icon">✓</span>
+                            <span>Verified Colleges & Universities</span>
+                        </div>
+                        <div className="hero-feature-item">
+                            <span className="hero-feature-icon">✓</span>
+                            <span>Transparent Admission Process</span>
+                        </div>
+                        <div className="hero-feature-item">
+                            <span className="hero-feature-icon">✓</span>
+                            <span>Bihar Student Credit Card Support</span>
+                        </div>
+                        <div className="hero-feature-item">
+                            <span className="hero-feature-icon">✓</span>
+                            <span>Career-Focused Counselling</span>
+                        </div>
+                        <div className="hero-feature-item">
+                            <span className="hero-feature-icon">✓</span>
+                            <span>End-to-End Admission Assistance</span>
                         </div>
                     </div>
-
-                    <div className="hero-visual fade-in fade-in-delay-2" style={{ pointerEvents: 'auto' }}>
-                        <div className="hero-image-wrapper">
-                            <div className="hero-image-card">
-                                <div className="hero-image-inner">
-                                    <div className="hero-image-icon">🎓</div>
-                                    <div className="hero-image-title">Shape Your Future</div>
-                                    <div className="hero-image-text">Join India's #1 MBA Admission Platform</div>
-                                </div>
-                            </div>
-                            <div className="hero-float hero-float-1">
-                                <div className="hero-float-icon" style={{ background: 'rgba(79,70,229,0.1)' }}>🏆</div>
-                                <div>
-                                    <div className="hero-float-text">Top Ranked</div>
-                                    <div className="hero-float-subtext">Among Admission Portals</div>
-                                </div>
-                            </div>
-                            <div className="hero-float hero-float-2">
-                                <div className="hero-float-icon" style={{ background: 'rgba(16,185,129,0.1)' }}>✅</div>
-                                <div>
-                                    <div className="hero-float-text">98% Placement</div>
-                                    <div className="hero-float-subtext">Across Partner Colleges</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                
+                {/* Auto-scrolling Logo Strip inside hero at bottom */}
+                <div className="hero-logo-strip-wrapper">
+                    <CollegeLogoStrip isHeroStrip={true} />
                 </div>
             </section>
 
@@ -151,9 +142,6 @@ function Home() {
                     ))}
                 </div>
             </section>
-
-            {/* ===== COLLEGE LOGO STRIP ===== */}
-            <CollegeLogoStrip />
 
             {/* ===== SERVICES SECTION ===== */}
             <section className="section" id="home-services" style={{ background: 'white' }}>
@@ -223,7 +211,7 @@ function Home() {
                     </div>
 
                     <div className="course-grid">
-                        {specializations.map((spec, i) => (
+                        {specializations.slice(0, 6).map((spec, i) => (
                             <Link
                                 to={`/specialization/${spec.slug}`}
                                 key={spec.slug}
@@ -266,6 +254,9 @@ function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* ===== COLLEGE LOGO STRIP ===== */}
+            <CollegeLogoStrip />
 
             {/* ===== WHY CHOOSE US ===== */}
             <section className="section" id="home-features" style={{ background: 'white' }}>
@@ -331,7 +322,7 @@ function Home() {
                 <div className="cta-content" data-animate="scale-in">
                     <h2 className="cta-title">Ready to Start Your MBA Journey?</h2>
                     <p className="cta-text">
-                        Get free counseling from our experts and take the first step towards your dream B-school. Applications for 2026-27 are now open.
+                        Get free counseling from our experts and take the first step towards your dream B-school.
                     </p>
                     <div className="cta-buttons">
                         <button onClick={() => openModal()} className="btn btn-accent btn-lg btn-glow" id="cta-apply-btn">

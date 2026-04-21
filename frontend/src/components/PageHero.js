@@ -12,7 +12,7 @@ function PageHero({ title, subtitle, breadcrumb, backgroundImage }) {
     // Split title into words and apply alternating colors
     const renderColoredTitle = (title) => {
         const words = title.split(' ');
-        const colors = ['#ffffff', '#ff9800', '#ffffff', '#ff5722']; // white, orange, white, red-orange
+        const colors = ['#ffffff', '#3b82f6', '#ffffff', '#2563eb']; // white, blue, white, darker blue
         
         return words.map((word, index) => (
             <span key={index} style={{ color: colors[index % colors.length] }}>

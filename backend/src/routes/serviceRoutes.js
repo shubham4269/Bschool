@@ -46,6 +46,15 @@ router.get('/admin/all', authMiddleware, async (req, res) => {
 // POST /api/services — Create new service (admin)
 router.post('/', authMiddleware, async (req, res) => {
     try {
+        // Check if the limit of 6 services has been reached
+        const serviceCount = await Service.countDocuments();
+        if (serviceCount >= 6) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Maximum limit of 6 services reached. Please delete an existing service before adding a new one.' 
+            });
+        }
+
         const service = new Service(req.body);
         await service.save();
         console.log(`✅ Service created: ${service.title}`);
