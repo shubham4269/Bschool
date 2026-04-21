@@ -20,7 +20,7 @@ function About() {
                 <div className="container">
                     <div className="about-content-section">
                         <div className="about-image-container" data-animate="fade-right">
-                            <img src="/about.webp" alt="About Bschool Bridge" className="about-image" />
+                            <img src="/About.webp" alt="About Bschool Bridge" className="about-image" />
                         </div>
                         <div className="about-text" data-animate="fade-left" data-delay="200">
                             <div className="section-label">Who We Are</div>
@@ -84,7 +84,7 @@ function About() {
                 <div className="container">
                     <div className="about-content-section reverse">
                         <div className="about-image-container" data-animate="fade-left">
-                            <img src="/process.webp" alt="Our Process" className="about-image" />
+                            <img src="/Process.webp" alt="Our Process" className="about-image" />
                         </div>
                         <div className="about-text" data-animate="fade-right" data-delay="200">
                             <div className="section-label">How We Work</div>
