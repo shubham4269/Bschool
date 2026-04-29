@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ApplyModal from './components/ApplyModal';
 import WhatsAppButton from './components/WhatsAppButton';
+import SocialSidebar from './components/SocialSidebar';
 import { ApplyModalProvider } from './context/ApplyModalContext';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -38,6 +39,7 @@ function AppContent() {
       {!isAdmin && <Navbar />}
       {!isAdmin && <ApplyModal />}
       {!isAdmin && <WhatsAppButton />}
+      {!isAdmin && <SocialSidebar />}
       <main>
         <Routes>
           <Route path="/index.html" element={<Navigate to="/" replace />} />
